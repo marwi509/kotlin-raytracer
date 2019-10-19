@@ -1,4 +1,3 @@
-
 import org.w3c.dom.DedicatedWorkerGlobalScope
 import kotlin.math.PI
 import kotlin.math.cos
@@ -77,7 +76,7 @@ private fun raytrace() {
                     val randomR = Random.nextDouble() * dofRandomizer
                     val randomAngle = Random.nextDouble() * PI * 2
 
-                    val dofNewLocation = worldLocation.plus(Vector(randomR * cos(randomAngle), worldLocation.y + randomR * sin(randomAngle), 0.0))
+                    val dofNewLocation = worldLocation.plus(Vector(randomR * cos(randomAngle), randomR * sin(randomAngle), 0.0))
 
                     val dofNewDirection = dofPoint.minus(dofNewLocation).normalize()
 
@@ -94,6 +93,11 @@ private fun raytrace() {
 
 }
 
+fun encode(src: String): String {
+    val buffer = js("Buffer").from(src)
+    return buffer.toString("base64") as String
+}
+
 private fun sendImage(image: Image) {
     image.toPixels().forEach {
         endImage[(it.y * width + it.x) * 3] = it.red
@@ -102,5 +106,6 @@ private fun sendImage(image: Image) {
     }
 
     val message = JSON.stringify(endImage)
+
     self.postMessage(message)
 }

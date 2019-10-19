@@ -1,5 +1,4 @@
 importScripts("https://marwi509.github.io/kotlin-raytracer/out/production/raytracerkotlin/lib/kotlin.js")
-
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'raytracerkotlin'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'raytracerkotlin'.");
 }
@@ -16,6 +15,7 @@ var raytracerkotlin = function (_, Kotlin) {
   var Unit = Kotlin.kotlin.Unit;
   var Random = Kotlin.kotlin.random.Random;
   var math = Kotlin.kotlin.math;
+  var throwCCE = Kotlin.throwCCE;
   var Math_0 = Math;
   var Enum = Kotlin.kotlin.Enum;
   var throwISE = Kotlin.throwISE;
@@ -324,7 +324,7 @@ var raytracerkotlin = function (_, Kotlin) {
             var dofPoint = direction.times_14dthe$(dofDistance);
             var randomR = Random.Default.nextDouble() * dofRandomizer;
             var randomAngle = Random.Default.nextDouble() * math.PI * 2;
-            var dofNewLocation = worldLocation.plus_spvnod$(new Vector(randomR * Math_0.cos(randomAngle), worldLocation.y + randomR * Math_0.sin(randomAngle), 0.0));
+            var dofNewLocation = worldLocation.plus_spvnod$(new Vector(randomR * Math_0.cos(randomAngle), randomR * Math_0.sin(randomAngle), 0.0));
             var dofNewDirection = dofPoint.minus_spvnod$(dofNewLocation).normalize();
             var ray = new Ray(dofNewLocation, dofNewDirection);
             colorSample.addSample_12ve4j$(scene.render_1r7u$(ray));
@@ -334,6 +334,11 @@ var raytracerkotlin = function (_, Kotlin) {
       }
     }
     sendImage(image);
+  }
+  function encode(src) {
+    var tmp$;
+    var buffer = Buffer.from(src);
+    return typeof (tmp$ = buffer.toString('base64')) === 'string' ? tmp$ : throwCCE();
   }
   function sendImage(image) {
     var tmp$;
@@ -667,6 +672,7 @@ var raytracerkotlin = function (_, Kotlin) {
     }
   });
   _.main = main;
+  _.encode_61zpoe$ = encode;
   Object.defineProperty(Material$Type, 'DIFFUSE', {
     get: Material$Type$DIFFUSE_getInstance
   });
