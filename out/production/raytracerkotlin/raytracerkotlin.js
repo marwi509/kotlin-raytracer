@@ -1,4 +1,3 @@
-importScripts("https://marwi509.github.io/kotlin-raytracer/out/production/raytracerkotlin/lib/kotlin.js")
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'raytracerkotlin'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'raytracerkotlin'.");
 }
@@ -333,9 +332,9 @@ var raytracerkotlin = function (_, Kotlin) {
     tmp$ = image.toPixels().iterator();
     while (tmp$.hasNext()) {
       var element = tmp$.next();
-      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) | 0] = element.red / 255.0;
-      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 1 | 0] = element.green / 255.0;
-      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 2 | 0] = element.blue / 255.0;
+      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) | 0] = element.red;
+      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 1 | 0] = element.green;
+      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 2 | 0] = element.blue;
     }
     self.postMessage(JSON.stringify(endImage));
   }

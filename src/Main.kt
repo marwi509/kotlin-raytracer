@@ -87,9 +87,9 @@ private fun raytrace() {
 
     }
     image.toPixels().forEach {
-        endImage[it.y * width + it.x * 3] = it.red / 255.0
-        endImage[it.y * width + it.x * 3 + 1] = it.green / 255.0
-        endImage[it.y * width + it.x * 3 + 2] = it.blue / 255.0
+        endImage[it.y * width + it.x * 3] = it.red
+        endImage[it.y * width + it.x * 3 + 1] = it.green
+        endImage[it.y * width + it.x * 3 + 2] = it.blue
     }
 
     self.postMessage(JSON.stringify(endImage))
