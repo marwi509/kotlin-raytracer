@@ -1,13 +1,11 @@
+
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
 import org.w3c.dom.MessageEvent
 import org.w3c.dom.Worker
 import org.w3c.dom.events.Event
 import kotlin.browser.document
-import kotlin.browser.window
 import kotlin.math.round
-import kotlin.random.Random
-import kotlin.reflect.typeOf
 
 val width = 1024
 val height = 600
@@ -19,6 +17,7 @@ val canvas = document.getElementById("c") as HTMLCanvasElement
 val context = canvas.getContext("2d") as CanvasRenderingContext2D
 var worker : Worker? = null
 fun main() {
+    println("marcus render")
     canvas.width = width
     canvas.height = height
     val blackImage = arrayListOf<Double>()
