@@ -1,4 +1,3 @@
-
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.DedicatedWorkerGlobalScope
 import kotlin.math.PI
@@ -12,8 +11,10 @@ const val msaa = 4
 const val zOffset = -4.0
 const val dofDistance = 11.0 + zOffset
 const val dofRandomizer = 0.35
+var l = 0
 
 external val self: DedicatedWorkerGlobalScope
+val image = Image(width, height)
 
 val endImage = Array(width * height * 3) { i -> 0.0 }
 
@@ -26,7 +27,7 @@ fun main() {
 }
 
 private fun raytrace() {
-    val image = Image(width, height)
+
 
     val floor = 3.0
 
@@ -52,43 +53,48 @@ private fun raytrace() {
 
     scene.placeAllOnFloor(1.0)
 
-    for (l in 0 until 1) {
-        println("l $l")
+    l++
+    println("l $l")
 
-        for (i in 0 until height) {
-            if (i % 100 == 0) {
-                println(i)
-            }
-            for (j in 0 until width) {
-                val colorSample = ColorSamples()
-                for (m in 0 until msaa) {
-                    for (k in 0 until msaa) {
-                        val adjustedY = (i * msaa + m).toDouble() / msaa.toDouble()
-                        val adjustedX = (j * msaa + k).toDouble() / msaa.toDouble()
-                        val screenLocation = Vector(adjustedX, adjustedY, 0.0)
-                        val worldLocation = Vector((screenLocation.x - width / 2) / width, (screenLocation.y - height / 2) / width, screenLocation.z)
-                        //println("${worldLocation.x}, ${worldLocation.y}, ${worldLocation.z}")
-                        val direction = Vector(worldLocation.x, worldLocation.y - 0.125, 1.0).normalize()
+    for (i in 0 until height) {
+        if (i % 100 == 0) {
+            println(i)
 
-                        val dofPoint = direction.times(dofDistance)
+        }
+        for (j in 0 until width) {
+            val colorSample = ColorSamples()
+            for (m in 0 until msaa) {
+                for (k in 0 until msaa) {
+                    val adjustedY = (i * msaa + m).toDouble() / msaa.toDouble()
+                    val adjustedX = (j * msaa + k).toDouble() / msaa.toDouble()
+                    val screenLocation = Vector(adjustedX, adjustedY, 0.0)
+                    val worldLocation = Vector((screenLocation.x - width / 2) / width, (screenLocation.y - height / 2) / width, screenLocation.z)
+                    //println("${worldLocation.x}, ${worldLocation.y}, ${worldLocation.z}")
+                    val direction = Vector(worldLocation.x, worldLocation.y - 0.125, 1.0).normalize()
 
-                        val randomR = Random.nextDouble() * dofRandomizer
-                        val randomAngle = Random.nextDouble() * PI * 2
+                    val dofPoint = direction.times(dofDistance)
 
-                        val dofNewLocation = worldLocation.plus(Vector(randomR * cos(randomAngle), worldLocation.y + randomR * sin(randomAngle), 0.0))
+                    val randomR = Random.nextDouble() * dofRandomizer
+                    val randomAngle = Random.nextDouble() * PI * 2
 
-                        val dofNewDirection = dofPoint.minus(dofNewLocation).normalize()
+                    val dofNewLocation = worldLocation.plus(Vector(randomR * cos(randomAngle), worldLocation.y + randomR * sin(randomAngle), 0.0))
 
-                        val ray = Ray(dofNewLocation, dofNewDirection)
-                        colorSample.addSample(scene.render(ray))
-                    }
+                    val dofNewDirection = dofPoint.minus(dofNewLocation).normalize()
+
+                    val ray = Ray(dofNewLocation, dofNewDirection)
+                    colorSample.addSample(scene.render(ray))
                 }
-                image.addSample(j, i, colorSample.getColor())
             }
+            image.addSample(j, i, colorSample.getColor())
         }
 
 
     }
+    sendImage(image)
+
+}
+
+private fun sendImage(image: Image) {
     image.toPixels().forEach {
         endImage[(it.y * width + it.x) * 3] = it.red
         endImage[(it.y * width + it.x) * 3 + 1] = it.green
@@ -96,7 +102,6 @@ private fun raytrace() {
     }
 
     val message = JSON.stringify(endImage)
-    //print("posting image $message")
     self.postMessage(message)
 }
 
