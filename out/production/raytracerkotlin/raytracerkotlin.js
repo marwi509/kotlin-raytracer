@@ -1,4 +1,5 @@
 importScripts("https://marwi509.github.io/kotlin-raytracer/out/production/raytracerkotlin/lib/kotlin.js")
+
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'raytracerkotlin'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'raytracerkotlin'.");
 }
@@ -346,10 +347,6 @@ var raytracerkotlin = function (_, Kotlin) {
     var message = JSON.stringify(endImage);
     self.postMessage(message);
   }
-  function drawPixel($receiver, pixel) {
-    $receiver.fillStyle = pixel.asRgba();
-    $receiver.fillRect(pixel.x, pixel.y, 1.0, 1.0);
-  }
   function Material(color, reflectiveness, type) {
     this.color = color;
     this.reflectiveness = reflectiveness;
@@ -670,7 +667,6 @@ var raytracerkotlin = function (_, Kotlin) {
     }
   });
   _.main = main;
-  _.drawPixel_bbujgf$ = drawPixel;
   Object.defineProperty(Material$Type, 'DIFFUSE', {
     get: Material$Type$DIFFUSE_getInstance
   });

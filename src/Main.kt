@@ -1,4 +1,4 @@
-import org.w3c.dom.CanvasRenderingContext2D
+
 import org.w3c.dom.DedicatedWorkerGlobalScope
 import kotlin.math.PI
 import kotlin.math.cos
@@ -53,7 +53,7 @@ private fun raytrace() {
 
     scene.placeAllOnFloor(1.0)
 
-    l++
+    l += 1
     println("l $l")
 
     for (i in 0 until height) {
@@ -103,10 +103,4 @@ private fun sendImage(image: Image) {
 
     val message = JSON.stringify(endImage)
     self.postMessage(message)
-}
-
-
-fun CanvasRenderingContext2D.drawPixel(pixel: Pixel) {
-    this.fillStyle = pixel.asRgba()
-    this.fillRect(pixel.x.toDouble(), pixel.y.toDouble(), 1.0, 1.0)
 }
