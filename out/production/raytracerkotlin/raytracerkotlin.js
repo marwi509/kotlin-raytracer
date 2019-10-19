@@ -12,6 +12,7 @@ var raytracerkotlin = function (_, Kotlin) {
   var Array_0 = Array;
   var println = Kotlin.kotlin.io.println_s8jyv4$;
   var Unit = Kotlin.kotlin.Unit;
+  var print = Kotlin.kotlin.io.print_s8jyv4$;
   var Random = Kotlin.kotlin.random.Random;
   var math = Kotlin.kotlin.math;
   var Math_0 = Math;
@@ -306,6 +307,9 @@ var raytracerkotlin = function (_, Kotlin) {
     for (var l = 0; l < 1; l++) {
       println('l ' + l);
       for (var i = 0; i < 600; i++) {
+        if (i % 100 === 0) {
+          print(i);
+        }
         for (var j = 0; j < 1024; j++) {
           var colorSample = new ColorSamples();
           for (var m = 0; m < 4; m++) {
@@ -336,7 +340,9 @@ var raytracerkotlin = function (_, Kotlin) {
       endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 1 | 0] = element.green;
       endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 2 | 0] = element.blue;
     }
-    self.postMessage(JSON.stringify(endImage));
+    var message = JSON.stringify(endImage);
+    print('posting image ' + message);
+    self.postMessage(message);
   }
   function drawPixel($receiver, pixel) {
     $receiver.fillStyle = pixel.asRgba();

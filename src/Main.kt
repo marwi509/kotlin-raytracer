@@ -56,6 +56,9 @@ private fun raytrace() {
         println("l $l")
 
         for (i in 0 until height) {
+            if (i % 100 == 0) {
+                print(i)
+            }
             for (j in 0 until width) {
                 val colorSample = ColorSamples()
                 for (m in 0 until msaa) {
@@ -92,7 +95,9 @@ private fun raytrace() {
         endImage[it.y * width + it.x * 3 + 2] = it.blue
     }
 
-    self.postMessage(JSON.stringify(endImage))
+    val message = JSON.stringify(endImage)
+    print("posting image $message")
+    self.postMessage(message)
 }
 
 
