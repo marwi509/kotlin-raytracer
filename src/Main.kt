@@ -57,7 +57,7 @@ private fun raytrace() {
 
         for (i in 0 until height) {
             if (i % 100 == 0) {
-                print(i)
+                println(i)
             }
             for (j in 0 until width) {
                 val colorSample = ColorSamples()
@@ -90,13 +90,13 @@ private fun raytrace() {
 
     }
     image.toPixels().forEach {
-        endImage[it.y * width + it.x * 3] = it.red
-        endImage[it.y * width + it.x * 3 + 1] = it.green
-        endImage[it.y * width + it.x * 3 + 2] = it.blue
+        endImage[(it.y * width + it.x) * 3] = it.red
+        endImage[(it.y * width + it.x) * 3 + 1] = it.green
+        endImage[(it.y * width + it.x) * 3 + 2] = it.blue
     }
 
     val message = JSON.stringify(endImage)
-    print("posting image $message")
+    //print("posting image $message")
     self.postMessage(message)
 }
 

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a7be1ded-657a-4ac6-b343-c914b53f4cf7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.kt" afterDir="false" />
-    </list>
+    <list default="true" id="a7be1ded-657a-4ac6-b343-c914b53f4cf7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +89,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571484058301</updated>
-      <workItem from="1571484061468" duration="868000" />
+      <workItem from="1571484061468" duration="1118000" />
     </task>
     <task id="LOCAL−00001" summary="add">
       <created>1571484457034</created>
@@ -112,11 +109,33 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1571484799289</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="add some stuff">
+      <created>1571484939623</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1571484939623</updated>
+    </task>
+    <task id="LOCAL−00005" summary="re-add import">
+      <created>1571484981743</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1571484981743</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -133,6 +152,8 @@
     <MESSAGE value="add" />
     <MESSAGE value="add script" />
     <MESSAGE value="try solmething" />
-    <option name="LAST_COMMIT_MESSAGE" value="try solmething" />
+    <MESSAGE value="add some stuff" />
+    <MESSAGE value="re-add import" />
+    <option name="LAST_COMMIT_MESSAGE" value="re-add import" />
   </component>
 </project>
