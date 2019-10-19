@@ -4,9 +4,9 @@ if (typeof kotlin === 'undefined') {
 var render = function (_, Kotlin) {
   'use strict';
   var throwCCE = Kotlin.throwCCE;
-  var println = Kotlin.kotlin.io.println_s8jyv4$;
   var ensureNotNull = Kotlin.ensureNotNull;
   var Unit = Kotlin.kotlin.Unit;
+  var println = Kotlin.kotlin.io.println_s8jyv4$;
   var split = Kotlin.kotlin.text.split_ip8yn$;
   var toDouble = Kotlin.kotlin.text.toDouble_pdl1vz$;
   var round = Kotlin.kotlin.math.round_14dthe$;
@@ -25,7 +25,6 @@ var render = function (_, Kotlin) {
   }
   function main() {
     var tmp$;
-    println('marcus render');
     canvas.width = width;
     canvas.height = height;
     var blackImage = ArrayList_init();
@@ -41,6 +40,7 @@ var render = function (_, Kotlin) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
     var event = Kotlin.isType(tmp$ = e, MessageEvent) ? tmp$ : throwCCE();
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
+    println('image from event in main thread');
     var endIndex = imageString.length - 1 | 0;
     var imageList = split(imageString.substring(1, endIndex), [',']);
     var destination = ArrayList_init_0(collectionSizeOrDefault(imageList, 10));
@@ -102,8 +102,8 @@ var render = function (_, Kotlin) {
   _.render_9ojx7i$ = render;
   _.fillStyle_yvo9jy$ = fillStyle;
   _.fillStyle_qt1dr2$ = fillStyle_0;
-  width = 1024;
-  height = 600;
+  width = 500;
+  height = 300;
   var tmp$, tmp$_0;
   canvas = Kotlin.isType(tmp$ = document.getElementById('c'), HTMLCanvasElement) ? tmp$ : throwCCE();
   context = Kotlin.isType(tmp$_0 = canvas.getContext('2d'), CanvasRenderingContext2D) ? tmp$_0 : throwCCE();

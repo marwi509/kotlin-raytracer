@@ -18,6 +18,7 @@ external val self: DedicatedWorkerGlobalScope
 val endImage = Array(width * height * 3) { i -> 0.0 }
 
 fun main() {
+    println("marcus raytracer")
     self.addEventListener("message", {
         println("worker got message!")
         raytrace()

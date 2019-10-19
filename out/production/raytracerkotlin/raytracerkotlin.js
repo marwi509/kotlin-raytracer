@@ -4,173 +4,348 @@ if (typeof kotlin === 'undefined') {
 }
 var raytracerkotlin = function (_, Kotlin) {
   'use strict';
+  var Kind_OBJECT = Kotlin.Kind.OBJECT;
+  var Kind_CLASS = Kotlin.Kind.CLASS;
   var listOf = Kotlin.kotlin.collections.listOf_i5x0yv$;
+  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
+  var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
+  var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_287e2$;
+  var Array_0 = Array;
   var println = Kotlin.kotlin.io.println_s8jyv4$;
   var Unit = Kotlin.kotlin.Unit;
   var Random = Kotlin.kotlin.random.Random;
-  var round = Kotlin.kotlin.math.round_14dthe$;
-  var numberToInt = Kotlin.numberToInt;
-  var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
-  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
-  var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_287e2$;
+  var math = Kotlin.kotlin.math;
   var Math_0 = Math;
   var Enum = Kotlin.kotlin.Enum;
-  var Kind_CLASS = Kotlin.Kind.CLASS;
   var throwISE = Kotlin.throwISE;
-  var Kind_OBJECT = Kotlin.Kind.OBJECT;
+  var kotlin_js_internal_DoubleCompanionObject = Kotlin.kotlin.js.internal.DoubleCompanionObject;
   Material$Type.prototype = Object.create(Enum.prototype);
   Material$Type.prototype.constructor = Material$Type;
-  Plane.prototype = Object.create(Mesh.prototype);
-  Plane.prototype.constructor = Plane;
-  Sphere.prototype = Object.create(Mesh.prototype);
-  Sphere.prototype.constructor = Sphere;
+  function Color(red, green, blue) {
+    Color$Companion_getInstance();
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+  }
+  Color.prototype.toPixel_vux9f0$ = function (x, y) {
+    return Pixel_init(x, y, this.red, this.green, this.blue);
+  };
+  Color.prototype.toString = function () {
+    return 'Color(red=' + this.red + ', green=' + this.green + ', blue=' + this.blue + ')';
+  };
+  Color.prototype.multiply_14dthe$ = function (multiplier) {
+    return new Color(this.red * multiplier, this.green * multiplier, this.blue * multiplier);
+  };
+  Color.prototype.multiply_12ve4j$ = function (multiplier) {
+    return new Color(this.red * multiplier.red, this.green * multiplier.green, this.blue * multiplier.blue);
+  };
+  Color.prototype.plus_12ve4j$ = function (color) {
+    return new Color(this.red + color.red, this.green + color.green, this.blue + color.blue);
+  };
+  Color.prototype.divide_14dthe$ = function (d) {
+    return new Color(this.red / d, this.green / d, this.blue / d);
+  };
+  Color.prototype.clamp_lu1900$ = function (max, min) {
+    return new Color(this.clamp_yvo9jy$(this.red, min, max), this.clamp_yvo9jy$(this.green, min, max), this.clamp_yvo9jy$(this.blue, min, max));
+  };
+  Color.prototype.clamp_yvo9jy$ = function (x, max, min) {
+    return x > max ? max : x < min ? min : x;
+  };
+  Color.prototype.minus_12ve4j$ = function (color) {
+    return new Color(this.red - color.red, this.green - color.green, this.blue - color.blue);
+  };
+  function Color$Companion() {
+    Color$Companion_instance = this;
+  }
+  Color$Companion.prototype.black = function () {
+    return new Color(0.0, 0.0, 0.0);
+  };
+  Color$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var Color$Companion_instance = null;
+  function Color$Companion_getInstance() {
+    if (Color$Companion_instance === null) {
+      new Color$Companion();
+    }
+    return Color$Companion_instance;
+  }
+  Color.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Color',
+    interfaces: []
+  };
+  function ColorSamples() {
+    this.color_0 = Color$Companion_getInstance().black();
+    this.samples_0 = 0;
+  }
+  ColorSamples.prototype.addSample_12ve4j$ = function (other) {
+    this.color_0 = this.color_0.plus_12ve4j$(other);
+    this.samples_0 = this.samples_0 + 1 | 0;
+  };
+  ColorSamples.prototype.getColor = function () {
+    return this.color_0.divide_14dthe$(this.samples_0);
+  };
+  ColorSamples.prototype.toString = function () {
+    return 'ColorSamples(color=' + this.color_0 + ', samples=' + this.samples_0 + ')';
+  };
+  ColorSamples.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'ColorSamples',
+    interfaces: []
+  };
+  function Image() {
+    this.colors_0 = null;
+    this.width_0 = 0;
+    this.height_0 = 0;
+  }
+  Image.prototype.addSample_if1tab$ = function (x, y, color) {
+    var index = Kotlin.imul(this.width_0, y) + x | 0;
+    this.colors_0[index].addSample_12ve4j$(color);
+  };
+  Image.prototype.toPixels = function () {
+    var tmp$, tmp$_0;
+    var list = ArrayList_init(0);
+    for (var index = 0; index < 0; index++) {
+      list.add_11rb$(Pixel_init(0, 0, 0.0, 0.0, 0.0));
+    }
+    var list_0 = list;
+    tmp$ = this.height_0;
+    for (var i = 0; i < tmp$; i++) {
+      tmp$_0 = this.width_0;
+      for (var j = 0; j < tmp$_0; j++) {
+        var color = this.colors_0[Kotlin.imul(this.width_0, i) + j | 0];
+        list_0.add_11rb$(color.getColor().toPixel_vux9f0$(j, i));
+      }
+    }
+    return list_0;
+  };
+  Image.prototype.pixelsWithBloom = function () {
+    var tmp$, tmp$_0;
+    var image = Image_init(this.width_0, this.height_0);
+    var $receiver = this.colors_0;
+    var destination = ArrayList_init($receiver.length);
+    var tmp$_1;
+    for (tmp$_1 = 0; tmp$_1 !== $receiver.length; ++tmp$_1) {
+      var item = $receiver[tmp$_1];
+      destination.add_11rb$(item.getColor());
+    }
+    var destination_0 = ArrayList_init(collectionSizeOrDefault(destination, 10));
+    var tmp$_2;
+    tmp$_2 = destination.iterator();
+    while (tmp$_2.hasNext()) {
+      var item_0 = tmp$_2.next();
+      destination_0.add_11rb$(item_0.minus_12ve4j$(new Color(1.0, 1.0, 1.0)));
+    }
+    var destination_1 = ArrayList_init(collectionSizeOrDefault(destination_0, 10));
+    var tmp$_3;
+    tmp$_3 = destination_0.iterator();
+    while (tmp$_3.hasNext()) {
+      var item_1 = tmp$_3.next();
+      destination_1.add_11rb$(item_1.clamp_lu1900$(0.0, 1.0));
+    }
+    var colorsSampled = destination_1;
+    tmp$ = this.height_0;
+    for (var i = 0; i < tmp$; i++) {
+      tmp$_0 = this.width_0;
+      for (var j = 0; j < tmp$_0; j++) {
+        var $receiver_0 = listOf([new Image$ImagePoint(j - 1 | 0, i - 1 | 0), new Image$ImagePoint(j + 1 | 0, i - 1 | 0), new Image$ImagePoint(j + 1 | 0, i + 1 | 0), new Image$ImagePoint(j - 1 | 0, i + 1 | 0), new Image$ImagePoint(j, i), new Image$ImagePoint(j, i - 1 | 0), new Image$ImagePoint(j - 1 | 0, i), new Image$ImagePoint(j, i + 1 | 0), new Image$ImagePoint(j + 1 | 0, i)]);
+        var destination_2 = ArrayList_init_0();
+        var tmp$_4;
+        tmp$_4 = $receiver_0.iterator();
+        while (tmp$_4.hasNext()) {
+          var element = tmp$_4.next();
+          if (element.x > 0 && element.y > 0)
+            destination_2.add_11rb$(element);
+        }
+        var destination_3 = ArrayList_init_0();
+        var tmp$_5;
+        tmp$_5 = destination_2.iterator();
+        while (tmp$_5.hasNext()) {
+          var element_0 = tmp$_5.next();
+          if (element_0.x < this.width_0 && element_0.y < this.height_0)
+            destination_3.add_11rb$(element_0);
+        }
+        var pointsToSample = destination_3;
+        var tmp$_6;
+        tmp$_6 = pointsToSample.iterator();
+        while (tmp$_6.hasNext()) {
+          var element_1 = tmp$_6.next();
+          image.addSample_if1tab$(j, i, colorsSampled.get_za3lpa$(Kotlin.imul(element_1.y, this.width_0) + element_1.x | 0));
+        }
+      }
+    }
+    return this.combine_0(image);
+  };
+  Image.prototype.combine_0 = function (other) {
+    var tmp$, tmp$_0;
+    var list = ArrayList_init(0);
+    for (var index = 0; index < 0; index++) {
+      list.add_11rb$(Pixel_init(0, 0, 0.0, 0.0, 0.0));
+    }
+    var list_0 = list;
+    tmp$ = this.height_0;
+    for (var i = 0; i < tmp$; i++) {
+      tmp$_0 = this.width_0;
+      for (var j = 0; j < tmp$_0; j++) {
+        var color = this.colors_0[Kotlin.imul(this.width_0, i) + j | 0].getColor().plus_12ve4j$(other.colors_0[Kotlin.imul(this.width_0, i) + j | 0].getColor());
+        list_0.add_11rb$(color.toPixel_vux9f0$(j, i));
+      }
+    }
+    return list_0;
+  };
+  function Image$ImagePoint(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  Image$ImagePoint.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'ImagePoint',
+    interfaces: []
+  };
+  Image$ImagePoint.prototype.component1 = function () {
+    return this.x;
+  };
+  Image$ImagePoint.prototype.component2 = function () {
+    return this.y;
+  };
+  Image$ImagePoint.prototype.copy_vux9f0$ = function (x, y) {
+    return new Image$ImagePoint(x === void 0 ? this.x : x, y === void 0 ? this.y : y);
+  };
+  Image$ImagePoint.prototype.toString = function () {
+    return 'ImagePoint(x=' + Kotlin.toString(this.x) + (', y=' + Kotlin.toString(this.y)) + ')';
+  };
+  Image$ImagePoint.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.x) | 0;
+    result = result * 31 + Kotlin.hashCode(this.y) | 0;
+    return result;
+  };
+  Image$ImagePoint.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.x, other.x) && Kotlin.equals(this.y, other.y)))));
+  };
+  Image.prototype.clamp_0 = function (x, min) {
+    var tmp$;
+    if (x < min)
+      tmp$ = min;
+    else
+      tmp$ = x;
+    return tmp$;
+  };
+  Image.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Image',
+    interfaces: []
+  };
+  function Image_init(width, height, $this) {
+    $this = $this || Object.create(Image.prototype);
+    Image.call($this);
+    var array = Array_0(Kotlin.imul(width, height));
+    var tmp$;
+    tmp$ = array.length - 1 | 0;
+    for (var i = 0; i <= tmp$; i++) {
+      array[i] = new ColorSamples();
+    }
+    $this.colors_0 = array;
+    $this.width_0 = width;
+    $this.height_0 = height;
+    return $this;
+  }
+  function Location(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  Location.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Location',
+    interfaces: []
+  };
+  Location.prototype.component1 = function () {
+    return this.x;
+  };
+  Location.prototype.component2 = function () {
+    return this.y;
+  };
+  Location.prototype.copy_vux9f0$ = function (x, y) {
+    return new Location(x === void 0 ? this.x : x, y === void 0 ? this.y : y);
+  };
+  Location.prototype.toString = function () {
+    return 'Location(x=' + Kotlin.toString(this.x) + (', y=' + Kotlin.toString(this.y)) + ')';
+  };
+  Location.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.x) | 0;
+    result = result * 31 + Kotlin.hashCode(this.y) | 0;
+    return result;
+  };
+  Location.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.x, other.x) && Kotlin.equals(this.y, other.y)))));
+  };
   var width;
   var height;
-  function clamp(value, min, max) {
-    return value > max ? max : value < min ? min : value;
-  }
-  var spheres;
-  var xmax;
-  var ymax;
-  var maxBounces;
-  var numBounces;
+  var msaa;
+  var zOffset;
+  var dofDistance;
+  var dofRandomizer;
   var endImage;
-  var numPasses;
   function main$lambda(it) {
     println('worker got message!');
     raytrace();
     return Unit;
   }
   function main() {
-    var tmp$;
-    println('Started webworker');
-    tmp$ = Kotlin.imul(width, height) * 3 | 0;
-    for (var i = 0; i < tmp$; i++) {
-      endImage.add_11rb$(0.0);
-    }
+    println('marcus raytracer');
     self.addEventListener('message', main$lambda);
   }
   function raytrace() {
-    var tmp$, tmp$_0;
-    var index = 0;
-    tmp$ = height;
-    for (var screenY = 0; screenY < tmp$; screenY++) {
-      tmp$_0 = width;
-      for (var screenX = 0; screenX < tmp$_0; screenX++) {
-        var endColor = Vector_init();
-        var x = screenX * 6.0 / width - 3.0;
-        var y = screenY * 6.0 * height / width / height - 3.0 * height / width;
-        var dir = (new Vector(x / xmax, y / ymax, -1.0)).normalize();
-        var s = new Vector(0.0, 0.0, 7.0);
-        var numRays = 100;
-        for (var i = 0; i < numRays; i++) {
-          numBounces = 0;
-          endColor = endColor.plus_spvnod$(shootRay(s, dir));
-        }
-        endColor = endColor.div_14dthe$(numRays);
-        endImage.set_wxm5ur$(index, endImage.get_za3lpa$(index) + endColor.x);
-        endImage.set_wxm5ur$(index + 1 | 0, endImage.get_za3lpa$(index + 1 | 0) + endColor.y);
-        endImage.set_wxm5ur$(index + 2 | 0, endImage.get_za3lpa$(index + 2 | 0) + endColor.z);
-        index = index + 3 | 0;
-      }
-      if (screenY % 200 === 0) {
-        println(screenY);
-      }
-    }
-    var $receiver = endImage;
-    var destination = ArrayList_init(collectionSizeOrDefault($receiver, 10));
-    var tmp$_1;
-    tmp$_1 = $receiver.iterator();
-    while (tmp$_1.hasNext()) {
-      var item = tmp$_1.next();
-      destination.add_11rb$(clamp(item / numPasses, 0.0, 1.0));
-    }
-    var imageToRender = destination;
-    numPasses = numPasses + 1 | 0;
-    self.postMessage(JSON.stringify(imageToRender));
-    println('posted message');
-  }
-  function shootRay(start, direction) {
-    var tmp$, tmp$_0;
-    if ((tmp$ = numBounces, numBounces = tmp$ + 1 | 0, tmp$) > maxBounces) {
-      return Vector_init();
-    }
-    var $receiver = spheres;
-    var destination = ArrayList_init_0();
-    var tmp$_1;
-    tmp$_1 = $receiver.iterator();
-    while (tmp$_1.hasNext()) {
-      var element = tmp$_1.next();
-      var tmp$_0_0;
-      if ((tmp$_0_0 = element.getIntersection_nmolro$(start, direction)) != null) {
-        destination.add_11rb$(tmp$_0_0);
-      }
-    }
-    var intersections = destination;
-    var minBy$result;
-    minBy$break: do {
-      var iterator = intersections.iterator();
-      if (!iterator.hasNext()) {
-        minBy$result = null;
-        break minBy$break;
-      }
-      var minElem = iterator.next();
-      if (!iterator.hasNext()) {
-        minBy$result = minElem;
-        break minBy$break;
-      }
-      var minValue = minElem.position.minus_spvnod$(start).length();
-      do {
-        var e = iterator.next();
-        var v = e.position.minus_spvnod$(start).length();
-        if (Kotlin.compareTo(minValue, v) > 0) {
-          minElem = e;
-          minValue = v;
+    var image = Image_init(1024, 600);
+    var floor = 3.0;
+    var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), new Material(new Color(0.6, 0.9, 0.6), 0.5, Material$Type$DIFFUSE_getInstance()), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), new Material(new Color(0.6, 0.6, 0.9), 0.5, Material$Type$DIFFUSE_getInstance()), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), new Material(new Color(0.9, 0.6, 0.6), 0.75, Material$Type$DIFFUSE_getInstance()), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), new Material(new Color(0.9, 0.9, 0.9), 0.0, Material$Type$DIFFUSE_getInstance()), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), new Material((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0), 0.0, Material$Type$LIGHT_getInstance()), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), new Material(new Color(0.75, 0.75, 0.75), 0.0, Material$Type$DIFFUSE_getInstance()), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), new Material(new Color(1.0, 1.0, 1.0), 0.0, Material$Type$LIGHT_getInstance()), 1000000.0)]));
+    scene.placeAllOnFloor_14dthe$(1.0);
+    for (var l = 0; l < 1; l++) {
+      println('l ' + l);
+      for (var i = 0; i < 600; i++) {
+        for (var j = 0; j < 1024; j++) {
+          var colorSample = new ColorSamples();
+          for (var m = 0; m < 4; m++) {
+            for (var k = 0; k < 4; k++) {
+              var adjustedY = ((i * 4 | 0) + m | 0) / 4;
+              var adjustedX = ((j * 4 | 0) + k | 0) / 4;
+              var screenLocation = new Vector(adjustedX, adjustedY, 0.0);
+              var worldLocation = new Vector((screenLocation.x - 512) / 1024, (screenLocation.y - 300) / 1024, screenLocation.z);
+              var direction = (new Vector(worldLocation.x, worldLocation.y - 0.125, 1.0)).normalize();
+              var dofPoint = direction.times_14dthe$(dofDistance);
+              var randomR = Random.Default.nextDouble() * dofRandomizer;
+              var randomAngle = Random.Default.nextDouble() * math.PI * 2;
+              var dofNewLocation = worldLocation.plus_spvnod$(new Vector(randomR * Math_0.cos(randomAngle), worldLocation.y + randomR * Math_0.sin(randomAngle), 0.0));
+              var dofNewDirection = dofPoint.minus_spvnod$(dofNewLocation).normalize();
+              var ray = new Ray(dofNewLocation, dofNewDirection);
+              colorSample.addSample_12ve4j$(scene.render_1r7u$(ray));
+            }
+          }
+          image.addSample_if1tab$(j, i, colorSample.getColor());
         }
       }
-       while (iterator.hasNext());
-      minBy$result = minElem;
     }
-     while (false);
-    tmp$_0 = minBy$result;
-    if (tmp$_0 == null) {
-      return new Vector(0.0, 0.0, 0.0);
+    var tmp$;
+    tmp$ = image.toPixels().iterator();
+    while (tmp$.hasNext()) {
+      var element = tmp$.next();
+      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) | 0] = element.red / 255.0;
+      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 1 | 0] = element.green / 255.0;
+      endImage[(element.y * 1024 | 0) + (element.x * 3 | 0) + 2 | 0] = element.blue / 255.0;
     }
-    var closestIntersection = tmp$_0;
-    if (closestIntersection.material.type === Material$Type$LIGHT_getInstance()) {
-      return closestIntersection.material.emittance;
-    }
-     else {
-      var randomVector = Vector$Companion_getInstance().random();
-      var crossed = randomVector.cross_spvnod$(closestIntersection.normal).normalize();
-      var eps1 = Random.Default.nextDouble() * 3.14159 * 2.0;
-      var x = Random.Default.nextDouble();
-      var eps2 = Math_0.sqrt(x);
-      var x_0 = Math_0.cos(eps1) * eps2;
-      var y = Math_0.sin(eps1) * eps2;
-      var x_1 = 1.0 - eps2 * eps2;
-      var z = Math_0.sqrt(x_1);
-      var tangent = closestIntersection.normal.cross_spvnod$(crossed);
-      var newDirection = crossed.times_14dthe$(x_0).plus_spvnod$(tangent.times_14dthe$(y)).plus_spvnod$(closestIntersection.normal.times_14dthe$(z));
-      var reflected = shootRay(closestIntersection.position, newDirection);
-      return closestIntersection.material.color.times_spvnod$(reflected);
-    }
+    self.postMessage(JSON.stringify(endImage));
   }
-  function fillStyle(r, g, b) {
-    return fillStyle_0(numberToInt(round(r * 255)), numberToInt(round(g * 255)), numberToInt(round(b * 255)));
+  function drawPixel($receiver, pixel) {
+    $receiver.fillStyle = pixel.asRgba();
+    $receiver.fillRect(pixel.x, pixel.y, 1.0, 1.0);
   }
-  function fillStyle_0(r, g, b) {
-    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-  }
-  function fillStyle_1(color) {
-    var r = numberToInt(color.x * 255);
-    var g = numberToInt(color.y * 255);
-    var b = numberToInt(color.z * 255);
-    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-  }
-  function Material(color, emittance, type) {
+  function Material(color, reflectiveness, type) {
     this.color = color;
-    this.emittance = emittance;
+    this.reflectiveness = reflectiveness;
     this.type = type;
   }
   function Material$Type(name, ordinal) {
@@ -218,71 +393,156 @@ var raytracerkotlin = function (_, Kotlin) {
     simpleName: 'Material',
     interfaces: []
   };
-  function Mesh(x, y, z) {
-    this.position = new Vector(x, y, z);
+  function Pixel() {
+    this.x = 0;
+    this.y = 0;
+    this.red = 0;
+    this.green = 0;
+    this.blue = 0;
   }
-  Mesh.$metadata$ = {
+  Pixel.prototype.plus_12ve4j$ = function (other) {
+    return Pixel_init(this.x, this.y, this.red + other.red, this.green + other.green, this.blue + other.blue);
+  };
+  Pixel.prototype.asRgba = function () {
+    return 'rgb(' + this.red * 255 + ', ' + this.green * 255 + ', ' + this.blue * 255 + ')';
+  };
+  Pixel.$metadata$ = {
     kind: Kind_CLASS,
-    simpleName: 'Mesh',
+    simpleName: 'Pixel',
     interfaces: []
   };
-  function Plane(x, y, z, normal, material) {
-    Mesh.call(this, x, y, z);
-    this.normal = normal;
-    this.material = material;
+  function Pixel_init(x, y, red, green, blue, $this) {
+    $this = $this || Object.create(Pixel.prototype);
+    Pixel.call($this);
+    $this.x = x;
+    $this.y = y;
+    $this.red = red > 1 ? 1.0 : red;
+    $this.green = green > 1 ? 1.0 : green;
+    $this.blue = blue > 1 ? 1.0 : blue;
+    return $this;
   }
-  Plane.prototype.getIntersection_nmolro$ = function (start, direction) {
-    var distance = this.position.minus_spvnod$(start).dot_spvnod$(this.normal) / direction.dot_spvnod$(this.normal);
-    if (distance > 1.0E-5) {
-      var endMovement = direction.times_14dthe$(distance);
-      var intersectionPoint = start.plus_spvnod$(endMovement);
-      return new SurfacePoint(intersectionPoint, this.normal, this.material);
-    }
-    return null;
-  };
-  Plane.$metadata$ = {
+  function Pixel_init_0(x, y, red, green, blue, $this) {
+    $this = $this || Object.create(Pixel.prototype);
+    Pixel.call($this);
+    $this.x = x;
+    $this.y = y;
+    $this.red = red > 255 ? 1.0 : red / 255;
+    $this.green = green > 255 ? 1.0 : green / 255;
+    $this.blue = blue > 255 ? 1.0 : blue / 255;
+    return $this;
+  }
+  function Ray(location, direction) {
+    this.location = location;
+    this.direction = direction;
+  }
+  Ray.$metadata$ = {
     kind: Kind_CLASS,
-    simpleName: 'Plane',
-    interfaces: [Mesh]
+    simpleName: 'Ray',
+    interfaces: []
   };
-  function Sphere(x, y, z, radius, material) {
-    Mesh.call(this, x, y, z);
-    this.radius = radius;
-    this.material = material;
+  function Scene(spheres) {
+    this.spheres_0 = spheres;
   }
-  Sphere.prototype.getIntersection_nmolro$ = function (start, direction) {
-    var center = this.position;
-    var v = start.minus_spvnod$(center);
-    var wee = v.dot_spvnod$(direction) * v.dot_spvnod$(direction) - (v.x * v.x + v.y * v.y + v.z * v.z - this.radius * this.radius);
-    if (wee > 0) {
-      var intersectionDistance = [v.dot_spvnod$(direction) * -1 + Math_0.sqrt(wee), v.dot_spvnod$(direction) * -1 - Math_0.sqrt(wee)];
-      var a = intersectionDistance[0];
-      var b = intersectionDistance[1];
-      var closestIntersection = Math_0.min(a, b);
-      if (closestIntersection < 1.0E-5)
-        return null;
-      var endDistance = direction.times_14dthe$(closestIntersection);
-      var endPosition = start.plus_spvnod$(endDistance);
-      return new SurfacePoint(endPosition, this.getNormal_spvnod$(endPosition), this.material);
-    }
-    return null;
+  Scene.prototype.render_1r7u$ = function (ray) {
+    return this.render_8gnefh$(ray, new Color(1.0, 1.0, 1.0), 0);
   };
-  Sphere.prototype.getNormal_spvnod$ = function (pos) {
-    return pos.minus_spvnod$(this.position).normalize();
+  Scene.prototype.render_8gnefh$ = function (ray, currentDiffuseColor, depth) {
+    var tmp$, tmp$_0;
+    if (depth > 10) {
+      return Color$Companion_getInstance().black();
+    }
+    var closestHit = kotlin_js_internal_DoubleCompanionObject.MAX_VALUE;
+    var currentColor = new Color(0.4, 0.4, 0.4);
+    var hitLight = false;
+    var hit = false;
+    var newRay = new Ray(Vector$Companion_getInstance().random(), Vector$Companion_getInstance().random());
+    tmp$ = this.spheres_0.iterator();
+    while (tmp$.hasNext()) {
+      var sphere = tmp$.next();
+      var vectorBetweenSphereAndRay = ray.location.minus_spvnod$(sphere.location);
+      var thingy = ray.direction.scalarProduct_spvnod$(vectorBetweenSphereAndRay);
+      var firstPart = -thingy;
+      var inSquareRoot = thingy * thingy - (vectorBetweenSphereAndRay.lengthSquared() - sphere.radius * sphere.radius);
+      if (inSquareRoot < 0) {
+        continue;
+      }
+      var secondPart = Math_0.sqrt(inSquareRoot);
+      var firstHit = firstPart + secondPart;
+      var secondHit = firstPart - secondPart;
+      if (secondHit > 0) {
+        tmp$_0 = Math_0.min(firstHit, secondHit);
+      }
+       else {
+        tmp$_0 = firstHit;
+      }
+      var hitDistance = tmp$_0;
+      if (hitDistance < 1.0E-5)
+        continue;
+      if (hitDistance < closestHit) {
+        closestHit = hitDistance;
+      }
+       else {
+        continue;
+      }
+      var hitPoint = ray.location.plus_spvnod$(ray.direction.times_14dthe$(hitDistance));
+      var normal = sphere.normal_spvnod$(hitPoint);
+      hitLight = sphere.material.type === Material$Type$LIGHT_getInstance();
+      hit = true;
+      if (sphere.material.reflectiveness > 0 && Random.Default.nextDouble() < sphere.material.reflectiveness) {
+        currentColor = currentDiffuseColor;
+        newRay = new Ray(hitPoint, this.getReflectedDirection_0(normal, ray.direction));
+      }
+       else {
+        currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
+        newRay = new Ray(hitPoint, this.getNewDirection_0(normal, normal.cross_spvnod$(Vector$Companion_getInstance().random())));
+      }
+    }
+    if (hitLight) {
+      return currentColor;
+    }
+    if (hit) {
+      return this.render_8gnefh$(newRay, currentColor, depth + 1 | 0);
+    }
+    return Color$Companion_getInstance().black();
+  };
+  Scene.prototype.getNewDirection_0 = function (normal, tangent) {
+    var eps1 = Random.Default.nextDouble() * math.PI * 2;
+    var x = Random.Default.nextDouble();
+    var eps2 = Math_0.sqrt(x);
+    var x_0 = Math_0.cos(eps1) * eps2;
+    var y = Math_0.sin(eps1) * eps2;
+    var x_1 = 1.0 - eps2 * eps2;
+    var z = Math_0.sqrt(x_1);
+    return tangent.times_14dthe$(x_0).plus_spvnod$(normal.cross_spvnod$(tangent).times_14dthe$(y)).plus_spvnod$(normal.times_14dthe$(z));
+  };
+  Scene.prototype.getReflectedDirection_0 = function (normal, ray) {
+    return ray.minus_spvnod$(normal.times_14dthe$(2.0).times_14dthe$(normal.scalarProduct_spvnod$(ray)));
+  };
+  Scene.prototype.placeAllOnFloor_14dthe$ = function (d) {
+    var tmp$;
+    tmp$ = this.spheres_0.iterator();
+    while (tmp$.hasNext()) {
+      var element = tmp$.next();
+      if (element.material.type === Material$Type$DIFFUSE_getInstance() && element.radius < 1000)
+        element.location = new Vector(element.location.x, d - element.radius, element.location.z);
+    }
+  };
+  Scene.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Scene',
+    interfaces: []
+  };
+  function Sphere(location, material, radius) {
+    this.location = location;
+    this.material = material;
+    this.radius = radius;
+  }
+  Sphere.prototype.normal_spvnod$ = function (point) {
+    return point.minus_spvnod$(this.location).normalize();
   };
   Sphere.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'Sphere',
-    interfaces: [Mesh]
-  };
-  function SurfacePoint(position, normal, material) {
-    this.position = position;
-    this.normal = normal;
-    this.material = material;
-  }
-  SurfacePoint.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: 'SurfacePoint',
     interfaces: []
   };
   function Vector(x, y, z) {
@@ -291,11 +551,43 @@ var raytracerkotlin = function (_, Kotlin) {
     this.y = y;
     this.z = z;
   }
+  Vector.prototype.normalize = function () {
+    var length = this.length();
+    return new Vector(this.x / length, this.y / length, this.z / length);
+  };
+  Vector.prototype.length = function () {
+    var x = this.x * this.x + this.y * this.y + this.z * this.z;
+    return Math_0.sqrt(x);
+  };
+  Vector.prototype.lengthSquared = function () {
+    return this.x * this.x + this.y * this.y + this.z * this.z;
+  };
+  Vector.prototype.scalarProduct_spvnod$ = function (other) {
+    return this.x * other.x + this.y * other.y + this.z * other.z;
+  };
+  Vector.prototype.minus_spvnod$ = function (other) {
+    return new Vector(this.x - other.x, this.y - other.y, this.z - other.z);
+  };
+  Vector.prototype.plus_spvnod$ = function (other) {
+    return new Vector(this.x + other.x, this.y + other.y, this.z + other.z);
+  };
+  Vector.prototype.negate = function () {
+    return new Vector(-this.x, -this.y, -this.z);
+  };
+  Vector.prototype.times_14dthe$ = function (d) {
+    return new Vector(this.x * d, this.y * d, this.z * d);
+  };
+  Vector.prototype.cross_spvnod$ = function (other) {
+    return new Vector(this.y * other.z - this.z * other.y, this.z * other.x - this.x * other.z, this.x * other.y - this.y * other.x);
+  };
+  Vector.prototype.toString = function () {
+    return 'Vector(x=' + this.x + ', y=' + this.y + ', z=' + this.z + ')';
+  };
   function Vector$Companion() {
     Vector$Companion_instance = this;
   }
   Vector$Companion.prototype.random = function () {
-    return new Vector(Random.Default.nextDouble_lu1900$(-1.0, 1.0), Random.Default.nextDouble_lu1900$(-1.0, 1.0), Random.Default.nextDouble_lu1900$(-1.0, 1.0));
+    return (new Vector(Random.Default.nextDouble(), Random.Default.nextDouble(), Random.Default.nextDouble())).normalize();
   };
   Vector$Companion.$metadata$ = {
     kind: Kind_OBJECT,
@@ -309,46 +601,19 @@ var raytracerkotlin = function (_, Kotlin) {
     }
     return Vector$Companion_instance;
   }
-  Vector.prototype.normalize = function () {
-    var x = this.x * this.x + this.y * this.y + this.z * this.z;
-    var abs = Math_0.sqrt(x);
-    return new Vector(this.x / abs, this.y / abs, this.z / abs);
-  };
-  Vector.prototype.dot_spvnod$ = function (vec) {
-    return this.x * vec.x + this.y * vec.y + this.z * vec.z;
-  };
-  Vector.prototype.length = function () {
-    var x = this.x * this.x + this.y * this.y + this.z * this.z;
-    return Math_0.sqrt(x);
-  };
-  Vector.prototype.cross_spvnod$ = function (vec) {
-    return new Vector(this.y * vec.z - this.z * vec.y, -1 * (this.x * vec.z - this.z * vec.x), this.x * vec.y - this.y * vec.x);
-  };
-  Vector.prototype.minus_spvnod$ = function (vec) {
-    return new Vector(this.x - vec.x, this.y - vec.y, this.z - vec.z);
-  };
-  Vector.prototype.div_14dthe$ = function (value) {
-    return new Vector(this.x / value, this.y / value, this.z / value);
-  };
-  Vector.prototype.times_14dthe$ = function (value) {
-    return new Vector(this.x * value, this.y * value, this.z * value);
-  };
-  Vector.prototype.times_spvnod$ = function (vec) {
-    return new Vector(this.x * vec.x, this.y * vec.y, this.z * vec.z);
-  };
-  Vector.prototype.plus_spvnod$ = function (vec) {
-    return new Vector(this.x + vec.x, this.y + vec.y, this.z + vec.z);
-  };
   Vector.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'Vector',
     interfaces: []
   };
-  function Vector_init($this) {
-    $this = $this || Object.create(Vector.prototype);
-    Vector.call($this, 0.0, 0.0, 0.0);
-    return $this;
-  }
+  Object.defineProperty(Color, 'Companion', {
+    get: Color$Companion_getInstance
+  });
+  _.Color = Color;
+  _.ColorSamples = ColorSamples;
+  _.Image_init_vux9f0$ = Image_init;
+  _.Image = Image;
+  _.Location = Location;
   Object.defineProperty(_, 'width', {
     get: function () {
       return width;
@@ -359,57 +624,33 @@ var raytracerkotlin = function (_, Kotlin) {
       return height;
     }
   });
-  _.clamp_yvo9jy$ = clamp;
-  Object.defineProperty(_, 'spheres', {
+  Object.defineProperty(_, 'msaa', {
     get: function () {
-      return spheres;
+      return msaa;
     }
   });
-  Object.defineProperty(_, 'xmax', {
+  Object.defineProperty(_, 'zOffset', {
     get: function () {
-      return xmax;
+      return zOffset;
     }
   });
-  Object.defineProperty(_, 'ymax', {
+  Object.defineProperty(_, 'dofDistance', {
     get: function () {
-      return ymax;
+      return dofDistance;
     }
   });
-  Object.defineProperty(_, 'maxBounces', {
+  Object.defineProperty(_, 'dofRandomizer', {
     get: function () {
-      return maxBounces;
-    }
-  });
-  Object.defineProperty(_, 'numBounces', {
-    get: function () {
-      return numBounces;
-    },
-    set: function (value) {
-      numBounces = value;
+      return dofRandomizer;
     }
   });
   Object.defineProperty(_, 'endImage', {
     get: function () {
       return endImage;
-    },
-    set: function (value) {
-      endImage = value;
-    }
-  });
-  Object.defineProperty(_, 'numPasses', {
-    get: function () {
-      return numPasses;
-    },
-    set: function (value) {
-      numPasses = value;
     }
   });
   _.main = main;
-  _.raytrace = raytrace;
-  _.shootRay_nmolro$ = shootRay;
-  _.fillStyle_yvo9jy$ = fillStyle;
-  _.fillStyle_qt1dr2$ = fillStyle_0;
-  _.fillStyle_spvnod$ = fillStyle_1;
+  _.drawPixel_bbujgf$ = drawPixel;
   Object.defineProperty(Material$Type, 'DIFFUSE', {
     get: Material$Type$DIFFUSE_getInstance
   });
@@ -418,24 +659,29 @@ var raytracerkotlin = function (_, Kotlin) {
   });
   Material.Type = Material$Type;
   _.Material = Material;
-  _.Mesh = Mesh;
-  _.Plane = Plane;
+  _.Pixel_init_hq5qsi$ = Pixel_init;
+  _.Pixel_init_4qozqa$ = Pixel_init_0;
+  _.Pixel = Pixel;
+  _.Ray = Ray;
+  _.Scene = Scene;
   _.Sphere = Sphere;
-  _.SurfacePoint = SurfacePoint;
   Object.defineProperty(Vector, 'Companion', {
     get: Vector$Companion_getInstance
   });
-  _.Vector_init = Vector_init;
   _.Vector = Vector;
-  width = 500;
-  height = 300;
-  spheres = listOf([new Sphere(3.0, -2.0, 0.0, 1.0, new Material(Vector_init(), new Vector(40.0, 40.0, 40.0), Material$Type$LIGHT_getInstance())), new Sphere(-1.0, 0.0, -1.5, 1.0, new Material(new Vector(1.0, 0.6, 0.1), Vector_init(), Material$Type$DIFFUSE_getInstance())), new Sphere(1.0, 0.5, -1.0, 0.5, new Material(new Vector(0.2, 0.5, 1.0), Vector_init(), Material$Type$DIFFUSE_getInstance())), new Plane(0.0, 1.0, 0.0, new Vector(0.0, -1.0, 0.0), new Material(new Vector(0.2, 0.5, 0.2), Vector_init(), Material$Type$DIFFUSE_getInstance()))]);
-  xmax = 5;
-  ymax = 5;
-  maxBounces = 50;
-  numBounces = 0;
-  endImage = ArrayList_init_0();
-  numPasses = 1;
+  width = 1024;
+  height = 600;
+  msaa = 4;
+  zOffset = -4.0;
+  dofDistance = 11.0 + zOffset;
+  dofRandomizer = 0.35;
+  var array = Array_0(1843200);
+  var tmp$;
+  tmp$ = array.length - 1 | 0;
+  for (var i = 0; i <= tmp$; i++) {
+    array[i] = 0.0;
+  }
+  endImage = array;
   main();
   Kotlin.defineModule('raytracerkotlin', _);
   return _;
