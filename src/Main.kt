@@ -9,7 +9,7 @@ const val height = 600
 const val msaa = 4
 const val zOffset = -4.0
 const val dofDistance = 11.0 + zOffset
-const val dofRandomizer = 1.35
+const val dofRandomizer = 0.35
 var l = 0
 
 external val self: DedicatedWorkerGlobalScope
@@ -32,7 +32,7 @@ private fun raytrace() {
 
     val scene = Scene(listOf(
             Sphere(Vector(0.0, 2.0, 14.0 + zOffset), Material(Color(.6, .9, .6), 0.5, Material.Type.DIFFUSE), 1.3),
-            Sphere(Vector(-2.0, 2.0, 11.0 + zOffset), Material(Color(.6, .6, .9), 0.5, Material.Type.DIFFUSE), 1.2),
+            Sphere(Vector(-2.0, 2.0, 11.0 + zOffset), Material(Color(.6, .6, .9), 0.95, Material.Type.DIFFUSE), 1.2),
 
             Sphere(Vector(2.0, 2.0, 10.0 + zOffset), Material(Color(.9, .6, .6), 0.75, Material.Type.DIFFUSE), 1.8),
             Sphere(Vector(-0.5, 2.0, 9.5 + zOffset), Material(Color(.9, .9, .7), 0.0, Material.Type.DIFFUSE), .3),

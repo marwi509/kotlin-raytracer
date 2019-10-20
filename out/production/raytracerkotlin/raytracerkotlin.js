@@ -304,7 +304,7 @@ var raytracerkotlin = function (_, Kotlin) {
   }
   function raytrace() {
     var floor = 3.0;
-    var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), new Material(new Color(0.6, 0.9, 0.6), 0.5, Material$Type$DIFFUSE_getInstance()), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), new Material(new Color(0.6, 0.6, 0.9), 0.5, Material$Type$DIFFUSE_getInstance()), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), new Material(new Color(0.9, 0.6, 0.6), 0.75, Material$Type$DIFFUSE_getInstance()), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), new Material(new Color(0.9, 0.9, 0.9), 0.0, Material$Type$DIFFUSE_getInstance()), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), new Material((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0), 0.0, Material$Type$LIGHT_getInstance()), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), new Material(new Color(0.75, 0.75, 0.75), 0.0, Material$Type$DIFFUSE_getInstance()), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), new Material(new Color(1.0, 1.0, 1.0), 0.0, Material$Type$LIGHT_getInstance()), 1000000.0)]));
+    var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), new Material(new Color(0.6, 0.9, 0.6), 0.5, Material$Type$DIFFUSE_getInstance()), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), new Material(new Color(0.6, 0.6, 0.9), 0.95, Material$Type$DIFFUSE_getInstance()), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), new Material(new Color(0.9, 0.6, 0.6), 0.75, Material$Type$DIFFUSE_getInstance()), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), new Material(new Color(0.9, 0.9, 0.9), 0.0, Material$Type$DIFFUSE_getInstance()), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), new Material((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0), 0.0, Material$Type$LIGHT_getInstance()), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), new Material(new Color(0.75, 0.75, 0.75), 0.0, Material$Type$DIFFUSE_getInstance()), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), new Material(new Color(1.0, 1.0, 1.0), 0.0, Material$Type$LIGHT_getInstance()), 1000000.0)]));
     scene.placeAllOnFloor_14dthe$(1.0);
     l = l + 1 | 0;
     println('l ' + l);
@@ -696,7 +696,7 @@ var raytracerkotlin = function (_, Kotlin) {
   msaa = 4;
   zOffset = -4.0;
   dofDistance = 11.0 + zOffset;
-  dofRandomizer = 1.35;
+  dofRandomizer = 0.35;
   l = 0;
   image = Image_init(1024, 600);
   var array = Array_0(1843200);
