@@ -9,7 +9,7 @@ const val height = 600
 const val msaa = 4
 const val zOffset = -4.0
 const val dofDistance = 11.0 + zOffset
-const val dofRandomizer = 0.35
+const val dofRandomizer = 1.35
 var l = 0
 
 external val self: DedicatedWorkerGlobalScope

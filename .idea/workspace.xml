@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a7be1ded-657a-4ac6-b343-c914b53f4cf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.meta.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.meta.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin/root-package.kjsm" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin/root-package.kjsm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,7 +100,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571484058301</updated>
-      <workItem from="1571484061468" duration="3087000" />
+      <workItem from="1571484061468" duration="4332000" />
     </task>
     <task id="LOCAL−00001" summary="add">
       <created>1571484457034</created>
@@ -148,7 +150,13 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1571485769584</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="fix dof">
+      <created>1571505981978</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1571505981978</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,6 +192,7 @@
     <MESSAGE value="fix image layout" />
     <MESSAGE value="save previous samples" />
     <MESSAGE value="try something" />
-    <option name="LAST_COMMIT_MESSAGE" value="try something" />
+    <MESSAGE value="fix dof" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix dof" />
   </component>
 </project>
