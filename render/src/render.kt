@@ -46,13 +46,14 @@ fun render(e: Event) {
     val imageString = (event.data as String)
     val byteArray = imageString.hexStringToByteArray().toTypedArray()
     println("byte array size ${byteArray.size}")
+    println("byte min ${byteArray.min()}")
     //val imageList = imageString.substring(1,imageString.length-1).split(",")
     println("to byte array ${Date.now() - before}")
     //val doubleList = imageList.map { s -> s.toDouble() }
     val uint8ClampedArray = Uint8ClampedArray(1024 * 600 * 4)
     val index = 0
     for (i in byteArray.indices) {
-        uint8ClampedArray.asDynamic()[i] = byteArray[i].toInt().plus(10000)
+        uint8ClampedArray.asDynamic()[i] = byteArray[i].toInt().plus(127)
     }
     val image = ImageData(uint8ClampedArray, 1024, 600)
     println("to imagedata ${Date.now() - before}")
