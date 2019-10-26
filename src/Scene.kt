@@ -57,10 +57,10 @@ class Scene(
             hit = true
 
             //println("${hitPoint.x}, ${hitPoint.y}, ${hitPoint.z}")
-            if (sphere.material.type == Material.Type.DIFFUSE) {
+            if (sphere.material.type == Material.Type.GLASS) {
                 currentColor = sphere.material.color.multiply(currentDiffuseColor)
                 newRay = Ray(hitPoint, ray.direction)
-                return sphere.material.color
+                //return sphere.material.color
 
             } else if (sphere.material.reflectiveness > 0 && Random.nextDouble() < sphere.material.reflectiveness) {
                 currentColor = currentDiffuseColor
@@ -120,7 +120,7 @@ class Scene(
 
     fun placeAllOnFloor(d: Double) {
         spheres.forEach {
-            if (it.material.type == Material.Type.DIFFUSE && it.radius < 1000)
+            if (it.material.type != Material.Type.LIGHT && it.radius < 1000)
                 it.location = Vector(it.location.x, d - it.radius, it.location.z)
         }
     }

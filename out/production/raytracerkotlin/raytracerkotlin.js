@@ -561,10 +561,9 @@ var raytracerkotlin = function (_, Kotlin) {
       var normal = sphere.normal_spvnod$(hitPoint);
       hitLight = sphere.material.type === Material$Type$LIGHT_getInstance();
       hit = true;
-      if (sphere.material.type === Material$Type$DIFFUSE_getInstance()) {
+      if (sphere.material.type === Material$Type$GLASS_getInstance()) {
         currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
         newRay = new Ray(hitPoint, ray.direction);
-        return sphere.material.color;
       }
        else if (sphere.material.reflectiveness > 0 && Random.Default.nextDouble() < sphere.material.reflectiveness) {
         currentColor = currentDiffuseColor;
@@ -614,7 +613,7 @@ var raytracerkotlin = function (_, Kotlin) {
     tmp$ = this.spheres_0.iterator();
     while (tmp$.hasNext()) {
       var element = tmp$.next();
-      if (element.material.type === Material$Type$DIFFUSE_getInstance() && element.radius < 1000)
+      if (element.material.type !== Material$Type$LIGHT_getInstance() && element.radius < 1000)
         element.location = new Vector(element.location.x, d - element.radius, element.location.z);
     }
   };
