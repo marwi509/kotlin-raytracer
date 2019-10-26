@@ -563,7 +563,7 @@ var raytracerkotlin = function (_, Kotlin) {
       hit = true;
       if (sphere.material.type === Material$Type$GLASS_getInstance()) {
         var fresnel = this.fresnel_mjyd7m$(normal, ray.direction, sphere.material.refractionCoefficient);
-        if (Random.Default.nextDouble() > fresnel) {
+        if (Random.Default.nextDouble() < fresnel) {
           currentColor = currentDiffuseColor;
           newRay = new Ray(hitPoint, this.getReflectedDirection_0(normal, ray.direction));
         }
@@ -628,8 +628,8 @@ var raytracerkotlin = function (_, Kotlin) {
   Scene.prototype.fresnel_mjyd7m$ = function (normal, direction, refractiveIndex) {
     var cosi = normal.dot_spvnod$(direction);
     var into = cosi < 0;
-    var etai = !into ? 1.0 : refractiveIndex;
-    var etat = into ? 1.0 : refractiveIndex;
+    var etai = into ? 1.0 : refractiveIndex;
+    var etat = !into ? 1.0 : refractiveIndex;
     var tmp$ = etai / etat;
     var x = 1 - cosi * cosi;
     var sint = tmp$ * Math_0.sqrt(x);
