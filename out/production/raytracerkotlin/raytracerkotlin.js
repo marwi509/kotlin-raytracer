@@ -573,6 +573,7 @@ var raytracerkotlin = function (_, Kotlin) {
       if (sphere.material.type === Material$Type$GLASS_getInstance()) {
         currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
         newRay = new Ray(hitPoint, ray.direction);
+        return Color$Companion_getInstance().black();
       }
        else if (sphere.material.reflectiveness > 0 && Random.Default.nextDouble() < sphere.material.reflectiveness) {
         currentColor = currentDiffuseColor;

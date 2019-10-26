@@ -60,6 +60,7 @@ class Scene(
             if (sphere.material.type == Material.Type.GLASS) {
                 currentColor = sphere.material.color.multiply(currentDiffuseColor)
                 newRay = Ray(hitPoint, ray.direction)
+                return Color.black()
 
             } else if (sphere.material.reflectiveness > 0 && Random.nextDouble() < sphere.material.reflectiveness) {
                 currentColor = currentDiffuseColor
