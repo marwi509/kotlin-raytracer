@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 const val width = 1024
 const val height = 600
-const val msaa = 1
+const val msaa = 2
 const val zOffset = -4.0
 const val dofDistance = 11.0 + zOffset
 const val dofRandomizer = 0.25
