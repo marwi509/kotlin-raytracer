@@ -136,8 +136,8 @@ class Scene(
     fun fresnel(normal: Vector, direction: Vector, refractiveIndex: Double): Double {
         var cosi = normal.dot(direction)
         val into = cosi < 0
-        val etai = if (into) 1.0 else refractiveIndex
-        val etat = if (!into) 1.0 else refractiveIndex
+        val etai = if (!into) 1.0 else refractiveIndex
+        val etat = if (into) 1.0 else refractiveIndex
         val sint = etai / etat * sqrt(1 - cosi * cosi)
         if (sint >= 1) {
             return 1.0
