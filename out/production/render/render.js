@@ -10,13 +10,11 @@ var render = function (_, Kotlin) {
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var split = Kotlin.kotlin.text.split_ip8yn$;
   var toDouble = Kotlin.kotlin.text.toDouble_pdl1vz$;
-  var numberToInt = Kotlin.numberToInt;
-  var toByte = Kotlin.toByte;
   var round = Kotlin.kotlin.math.round_14dthe$;
+  var numberToInt = Kotlin.numberToInt;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
   var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
-  var copyToArray = Kotlin.kotlin.collections.copyToArray;
   Image.prototype = Object.create(ImageBitmap.prototype);
   Image.prototype.constructor = Image;
   var width;
@@ -51,7 +49,7 @@ var render = function (_, Kotlin) {
     interfaces: []
   };
   function render(e) {
-    var tmp$, tmp$_0;
+    var tmp$, tmp$_0, tmp$_1, tmp$_2;
     var event = Kotlin.isType(tmp$ = e, MessageEvent) ? tmp$ : throwCCE();
     println('starting render');
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
@@ -59,49 +57,27 @@ var render = function (_, Kotlin) {
     var imageList = split(imageString.substring(1, endIndex), [',']);
     println('split string');
     var destination = ArrayList_init_0(collectionSizeOrDefault(imageList, 10));
-    var tmp$_1;
-    tmp$_1 = imageList.iterator();
-    while (tmp$_1.hasNext()) {
-      var item = tmp$_1.next();
+    var tmp$_3;
+    tmp$_3 = imageList.iterator();
+    while (tmp$_3.hasNext()) {
+      var item = tmp$_3.next();
       destination.add_11rb$(toDouble(item));
     }
     var doubleList = destination;
     println('to double');
-    var destination_0 = ArrayList_init_0(collectionSizeOrDefault(doubleList, 10));
-    var tmp$_2;
-    tmp$_2 = doubleList.iterator();
-    while (tmp$_2.hasNext()) {
-      var item_0 = tmp$_2.next();
-      destination_0.add_11rb$(item_0 * 255);
-    }
-    var destination_1 = ArrayList_init_0(collectionSizeOrDefault(destination_0, 10));
-    var tmp$_3;
-    tmp$_3 = destination_0.iterator();
-    while (tmp$_3.hasNext()) {
-      var item_1 = tmp$_3.next();
-      destination_1.add_11rb$(item_1 < 0 ? 0.0 : item_1 > 255.0 ? 255.0 : item_1);
-    }
-    var destination_2 = ArrayList_init_0(collectionSizeOrDefault(destination_1, 10));
-    var tmp$_4;
-    tmp$_4 = destination_1.iterator();
-    while (tmp$_4.hasNext()) {
-      var item_2 = tmp$_4.next();
-      destination_2.add_11rb$(item_2 - 128.0);
-    }
-    var destination_3 = ArrayList_init_0(collectionSizeOrDefault(destination_2, 10));
-    var tmp$_5;
-    tmp$_5 = destination_2.iterator();
-    while (tmp$_5.hasNext()) {
-      var item_3 = tmp$_5.next();
-      destination_3.add_11rb$(toByte(numberToInt(item_3)));
-    }
-    var byteArray = copyToArray(destination_3);
-    println('to byte array');
-    var image = new ImageData(new Uint8ClampedArray(byteArray), 1024, 600);
-    println('to image data');
-    context.putImageData(image, 0.0, 0.0);
     println('rendered');
+    var index = 0;
+    tmp$_1 = height;
+    for (var y = 0; y < tmp$_1; y++) {
+      tmp$_2 = width;
+      for (var x = 0; x < tmp$_2; x++) {
+        context.fillStyle = fillStyle(doubleList.get_za3lpa$(index), doubleList.get_za3lpa$(index + 1 | 0), doubleList.get_za3lpa$(index + 2 | 0));
+        context.fillRect(x, y, 1.0, 1.0);
+        index = index + 4 | 0;
+      }
+    }
     println('rendered');
+    ensureNotNull(worker).postMessage('start');
   }
   function fillStyle(r, g, b) {
     return fillStyle_0(numberToInt(round(r * 255)), numberToInt(round(g * 255)), numberToInt(round(b * 255)));

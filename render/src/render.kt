@@ -1,5 +1,4 @@
 
-import org.khronos.webgl.Uint8ClampedArray
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.browser.document
@@ -36,7 +35,7 @@ class Image : ImageBitmap() {
 }
 
 fun render(e: Event) {
-    //worker!!.postMessage("start")
+
     val event = e as MessageEvent
     println("starting render")
 
@@ -46,7 +45,7 @@ fun render(e: Event) {
     println("split string")
     val doubleList = imageList.map { s -> s.toDouble() }
     println("to double")
-    val byteArray = doubleList
+    /*val byteArray = doubleList
             .map { d -> d *255 }
             .map { d -> if (d < 0) 0.0 else if (d > 255.0) 255.0 else d }
             .map { d -> d - 128.0 }
@@ -55,10 +54,10 @@ fun render(e: Event) {
     println("to byte array")
     val image = ImageData(Uint8ClampedArray(byteArray), 1024, 600)
     println("to image data")
-    context.putImageData(image, 0.0, 0.0)
+    context.putImageData(image, 0.0, 0.0)*/
     println("rendered")
 
-    /*
+
     var index = 0
     for(y in 0 until height) {
         for(x in 0 until width) {
@@ -66,11 +65,12 @@ fun render(e: Event) {
             context.fillRect(x.toDouble(), y.toDouble(),1.0,1.0)
             //context.drawImage(image, 1.0, 1.0)
 
-            index+=3
+            index+=4
         }
     }
-    */
+
     println("rendered")
+    worker!!.postMessage("start")
 
 
 
