@@ -11,6 +11,7 @@ var render = function (_, Kotlin) {
   var toTypedArray = Kotlin.kotlin.collections.toTypedArray_964n91$;
   var min = Kotlin.kotlin.collections.min_pbinho$;
   var toString = Kotlin.toString;
+  var max = Kotlin.kotlin.collections.max_pbinho$;
   var indexOf = Kotlin.kotlin.text.indexOf_8eortd$;
   var toByte = Kotlin.toByte;
   var round = Kotlin.kotlin.math.round_14dthe$;
@@ -58,6 +59,7 @@ var render = function (_, Kotlin) {
     var byteArray = toTypedArray(hexStringToByteArray(imageString));
     println('byte array size ' + byteArray.length);
     println('byte min ' + toString(min(byteArray)));
+    println('byte max ' + toString(max(byteArray)));
     println('to byte array ' + (Date.now() - before));
     var uint8ClampedArray = new Uint8ClampedArray(2457600);
     var index = 0;
