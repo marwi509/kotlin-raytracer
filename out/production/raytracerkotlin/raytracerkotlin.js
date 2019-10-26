@@ -18,6 +18,8 @@ var raytracerkotlin = function (_, Kotlin) {
   var math = Kotlin.kotlin.math;
   var throwCCE = Kotlin.throwCCE;
   var numberToInt = Kotlin.numberToInt;
+  var min = Kotlin.kotlin.collections.min_pbinho$;
+  var toString = Kotlin.toString;
   var toByteArray = Kotlin.kotlin.collections.toByteArray_vn5r1x$;
   var toCharArray = Kotlin.kotlin.text.toCharArray_pdl1vz$;
   var String_0 = Kotlin.kotlin.text.String_4hbowm$;
@@ -355,6 +357,7 @@ var raytracerkotlin = function (_, Kotlin) {
       endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 2 | 0] = toByte(numberToInt(clamp(element.blue * 255.0, 0.0, 255.0) - 128));
       endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 3 | 0] = toByte(127);
     }
+    println('byte array min in render ' + toString(min(endImage)));
     var hexString = bytesToHex(toByteArray(endImage));
     var message = JSON.stringify(hexString);
     self.postMessage(hexString);

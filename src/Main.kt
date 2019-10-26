@@ -107,6 +107,7 @@ private fun sendImage(image: Image) {
         endImage[(it.y * width + it.x) * 4 + 3] = 127.toByte()
     }
 
+    println("byte array min in render ${endImage.min()}")
 
     val hexString = endImage.toByteArray().bytesToHex()
     val message = JSON.stringify(hexString)
