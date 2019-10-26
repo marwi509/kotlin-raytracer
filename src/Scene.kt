@@ -59,7 +59,7 @@ class Scene(
             //println("${hitPoint.x}, ${hitPoint.y}, ${hitPoint.z}")
             if (sphere.material.type == Material.Type.GLASS) {
                 currentColor = sphere.material.color.multiply(currentDiffuseColor)
-                newRay = Ray(hitPoint, getRefractedDirection(normal, ray.direction, sphere.material.refractionCoefficient))
+                newRay = Ray(hitPoint, ray.direction)
 
             } else if (sphere.material.reflectiveness > 0 && Random.nextDouble() < sphere.material.reflectiveness) {
                 currentColor = currentDiffuseColor
@@ -106,8 +106,7 @@ class Scene(
         val newNormal = if (into) normal else normal.negate()
 
         val nc = 1.0
-        val nt = refractionIndex
-        val nnt = if (into) nc / nt else nt / nc
+        val nnt = if (into) nc / refractionIndex else refractionIndex / nc
         val ddn = direction.dot(newNormal)
         val cos2t = 1 - nnt*nnt*(1-ddn*ddn)
         if(cos2t < 0) {
