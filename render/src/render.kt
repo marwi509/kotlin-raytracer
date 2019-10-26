@@ -1,8 +1,6 @@
 
-import org.w3c.dom.CanvasRenderingContext2D
-import org.w3c.dom.HTMLCanvasElement
-import org.w3c.dom.MessageEvent
-import org.w3c.dom.Worker
+import org.khronos.webgl.Uint8ClampedArray
+import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.browser.document
 import kotlin.math.round
@@ -31,23 +29,40 @@ fun main() {
 
 }
 
+class Image : ImageBitmap() {
+
+
+
+}
+
 fun render(e: Event) {
     //worker!!.postMessage("start")
     val event = e as MessageEvent
 
+
     val imageString = (event.data as String)
     val imageList = imageString.substring(1,imageString.length-1).split(",")
     val doubleList = imageList.map { s -> s.toDouble() }
+    val byteArray = doubleList.map { d -> d *255 }.map { d -> if (d < 0) 0.0 else if (d > 255.0) 255.0 else d }
+            .map { d -> d - 128.0 }
+            .map { d -> d.toByte() }
+            .toTypedArray()
+    val image = ImageData(Uint8ClampedArray(byteArray), 1024, 600)
+    context.putImageData(image, 0.0, 0.0)
 
 
+    /*
     var index = 0
     for(y in 0 until height) {
         for(x in 0 until width) {
             context.fillStyle = fillStyle(doubleList[index], doubleList[index+1], doubleList[index+2])
             context.fillRect(x.toDouble(), y.toDouble(),1.0,1.0)
+            //context.drawImage(image, 1.0, 1.0)
+
             index+=3
         }
     }
+    */
     println("rendered")
 
 

@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7be1ded-657a-4ac6-b343-c914b53f4cf7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.meta.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.meta.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin/root-package.kjsm" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin/root-package.kjsm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/render/src/render.kt" beforeDir="false" afterPath="$PROJECT_DIR$/render/src/render.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,16 +17,34 @@
         <entry file="file://$PROJECT_DIR$/render/render.iml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="12" column="9" lean-forward="true" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+              <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/render/src/render.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/render/src/render.kt">
+        <entry file="jar://$PROJECT_DIR$/lib/kotlin-stdlib-js-sources.jar!/common/kotlin/UInt.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="43" column="30" lean-forward="true" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+            <state relative-caret-position="265">
+              <caret line="218" column="22" selection-start-line="218" selection-start-column="22" selection-end-line="218" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/kotlin-stdlib-js-sources.jar!/org.w3c/org.w3c.dom.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="2670" column="31" selection-start-line="2670" selection-start-column="31" selection-end-line="2670" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -36,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/out/production/render/render.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="7" column="43" lean-forward="true" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+              <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -46,11 +63,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="12" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+            <state relative-caret-position="-204">
+              <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
               <folding>
                 <element signature="e#0#141#0" expanded="true" />
               </folding>
@@ -61,8 +78,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="56" lean-forward="true" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -80,10 +97,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/render/src/render.kt" />
         <option value="$PROJECT_DIR$/out/production/render/render.js" />
-        <option value="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.js" />
         <option value="$PROJECT_DIR$/src/Main.kt" />
+        <option value="$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.js" />
+        <option value="$PROJECT_DIR$/render/src/render.kt" />
       </list>
     </option>
   </component>
@@ -105,6 +122,59 @@
             <path>
               <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
               <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin-stdlib-js.jar" type="ab9368bb:PsiFileNode" />
+            </path>
+            <path>
+              <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin-stdlib-js.jar" type="ab9368bb:PsiFileNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin-stdlib-js.jar" type="ab9368bb:PsiFileNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin-stdlib-js.jar" type="ab9368bb:PsiFileNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin-stdlib-js.jar" type="ab9368bb:PsiFileNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="w3c" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="raytracer-new" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin-stdlib-js.jar" type="ab9368bb:PsiFileNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="w3c" type="462c0819:PsiDirectoryNode" />
+              <item name="dom" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="raytracer-new" type="b2602c69:ProjectViewProjectNode" />
@@ -256,7 +326,7 @@
       <option name="presentableId" value="Default" />
       <updated>1571484058301</updated>
       <workItem from="1571484061468" duration="7111000" />
-      <workItem from="1572068142495" duration="799000" />
+      <workItem from="1572068142495" duration="1803000" />
     </task>
     <task id="LOCAL−00001" summary="add">
       <created>1571484457034</created>
@@ -366,11 +436,25 @@
       <option name="project" value="LOCAL" />
       <updated>1572068905800</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="print msaa">
+      <created>1572068994947</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1572068994947</updated>
+    </task>
+    <task id="LOCAL-00019" summary="always rende">
+      <created>1572069168115</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1572069168115</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="799000" />
+    <option name="totallyTimeSpent" value="1803000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="553" y="107" width="1578" height="1167" extended-state="0" />
@@ -478,50 +562,66 @@
     <MESSAGE value="fix" />
     <MESSAGE value="remove import" />
     <MESSAGE value="set msaa to 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="set msaa to 1" />
+    <MESSAGE value="print msaa" />
+    <MESSAGE value="always rende" />
+    <option name="LAST_COMMIT_MESSAGE" value="always rende" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/render/src/render.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="43" column="30" lean-forward="true" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/render/render.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" column="9" lean-forward="true" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.meta.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/out/production/render/render.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="7" column="43" lean-forward="true" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/out/production/render/lib/kotlin.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.meta.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/out/production/raytracerkotlin/raytracerkotlin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="56" lean-forward="true" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="12" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+        <state relative-caret-position="-204">
+          <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
           <folding>
             <element signature="e#0#141#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/kotlin-stdlib-js-sources.jar!/org.w3c/org.w3c.dom.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="2670" column="31" selection-start-line="2670" selection-start-column="31" selection-end-line="2670" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/kotlin-stdlib-js-sources.jar!/common/kotlin/UInt.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="218" column="22" selection-start-line="218" selection-start-column="22" selection-end-line="218" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/render/src/render.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
         </state>
       </provider>
     </entry>
