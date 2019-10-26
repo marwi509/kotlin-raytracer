@@ -49,7 +49,12 @@ fun render(e: Event) {
     //val imageList = imageString.substring(1,imageString.length-1).split(",")
     println("to byte array ${Date.now() - before}")
     //val doubleList = imageList.map { s -> s.toDouble() }
-    val image = ImageData(Uint8ClampedArray(byteArray), 1024, 600)
+    val uint8ClampedArray = Uint8ClampedArray(1024 * 600 * 4)
+    val index = 0
+    for (i in byteArray.indices) {
+        uint8ClampedArray.asDynamic()[i] = byteArray[i].toInt().plus(128)
+    }
+    val image = ImageData(uint8ClampedArray, 1024, 600)
     println("to imagedata ${Date.now() - before}")
     context.putImageData(image, 0.0, 0.0)
     /*val byteArray = doubleList
