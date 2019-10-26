@@ -299,7 +299,7 @@ var raytracerkotlin = function (_, Kotlin) {
     return Unit;
   }
   function main() {
-    println('marcus raytracer');
+    println('marcus raytracer msaa 1');
     self.addEventListener('message', main$lambda);
   }
   function raytrace() {

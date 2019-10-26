@@ -18,7 +18,7 @@ val image = Image(width, height)
 val endImage = Array(width * height * 3) { i -> 0.0 }
 
 fun main() {
-    println("marcus raytracer")
+    println("marcus raytracer msaa $msaa")
     self.addEventListener("message", {
         println("worker got message!")
         raytrace()
