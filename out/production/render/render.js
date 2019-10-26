@@ -1,4 +1,3 @@
-importScripts("https://marwi509.github.io/kotlin-raytracer/out/production/raytracerkotlin/lib/kotlin.js")
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'render'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'render'.");
 }
