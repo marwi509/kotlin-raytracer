@@ -1,4 +1,3 @@
-importScripts("https://marwi509.github.io/kotlin-raytracer/out/production/raytracerkotlin/lib/kotlin.js")
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'raytracerkotlin'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'raytracerkotlin'.");
 }
@@ -314,10 +313,10 @@ var raytracerkotlin = function (_, Kotlin) {
       }
       for (var j = 0; j < 1024; j++) {
         var colorSample = new ColorSamples();
-        for (var m = 0; m < 4; m++) {
-          for (var k = 0; k < 4; k++) {
-            var adjustedY = ((i * 4 | 0) + m | 0) / 4;
-            var adjustedX = ((j * 4 | 0) + k | 0) / 4;
+        for (var m = 0; m < 1; m++) {
+          for (var k = 0; k < 1; k++) {
+            var adjustedY = ((i * 1 | 0) + m | 0) / 1;
+            var adjustedX = ((j * 1 | 0) + k | 0) / 1;
             var screenLocation = new Vector(adjustedX, adjustedY, 0.0);
             var worldLocation = new Vector((screenLocation.x - 512) / 1024, (screenLocation.y - 300) / 1024, screenLocation.z);
             var direction = (new Vector(worldLocation.x, worldLocation.y - 0.125, 1.0)).normalize();
@@ -693,7 +692,7 @@ var raytracerkotlin = function (_, Kotlin) {
   _.Vector = Vector;
   width = 1024;
   height = 600;
-  msaa = 4;
+  msaa = 1;
   zOffset = -4.0;
   dofDistance = 11.0 + zOffset;
   dofRandomizer = 0.25;
