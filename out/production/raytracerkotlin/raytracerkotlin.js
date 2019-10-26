@@ -347,9 +347,10 @@ var raytracerkotlin = function (_, Kotlin) {
     tmp$ = image.toPixels().iterator();
     while (tmp$.hasNext()) {
       var element = tmp$.next();
-      endImage[((element.y * 1024 | 0) + element.x | 0) * 3 | 0] = element.red;
-      endImage[(((element.y * 1024 | 0) + element.x | 0) * 3 | 0) + 1 | 0] = element.green;
-      endImage[(((element.y * 1024 | 0) + element.x | 0) * 3 | 0) + 2 | 0] = element.blue;
+      endImage[((element.y * 1024 | 0) + element.x | 0) * 4 | 0] = element.red;
+      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 1 | 0] = element.green;
+      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 2 | 0] = element.blue;
+      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 3 | 0] = 1.0;
     }
     var message = JSON.stringify(endImage);
     self.postMessage(message);
@@ -701,7 +702,7 @@ var raytracerkotlin = function (_, Kotlin) {
   dofRandomizer = 0.25;
   l = 0;
   image = Image_init(1024, 600);
-  var array = Array_0(1843200);
+  var array = Array_0(2457600);
   var tmp$;
   tmp$ = array.length - 1 | 0;
   for (var i = 0; i <= tmp$; i++) {

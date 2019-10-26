@@ -15,7 +15,7 @@ var l = 0
 external val self: DedicatedWorkerGlobalScope
 val image = Image(width, height)
 
-val endImage = Array(width * height * 3) { i -> 0.0 }
+val endImage = Array(width * height * 4) { i -> 0.0 }
 
 fun main() {
     println("marcus raytracer msaa $msaa")
@@ -102,9 +102,10 @@ fun encode(src: String): String {
 
 private fun sendImage(image: Image) {
     image.toPixels().forEach {
-        endImage[(it.y * width + it.x) * 3] = it.red
-        endImage[(it.y * width + it.x) * 3 + 1] = it.green
-        endImage[(it.y * width + it.x) * 3 + 2] = it.blue
+        endImage[(it.y * width + it.x) * 4] = it.red
+        endImage[(it.y * width + it.x) * 4 + 1] = it.green
+        endImage[(it.y * width + it.x) * 4 + 2] = it.blue
+        endImage[(it.y * width + it.x) * 4 + 3] = 1.0
     }
 
     val message = JSON.stringify(endImage)
