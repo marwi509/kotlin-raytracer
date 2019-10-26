@@ -58,8 +58,15 @@ class Scene(
 
             //println("${hitPoint.x}, ${hitPoint.y}, ${hitPoint.z}")
             if (sphere.material.type == Material.Type.GLASS) {
-                currentColor = sphere.material.color.multiply(currentDiffuseColor)
-                newRay = Ray(hitPoint, getRefractedDirection(normal, ray.direction, sphere.material.refractionCoefficient))
+
+                val fresnel = fresnel(normal, ray.direction, sphere.material.refractionCoefficient)
+                if (Random.nextDouble() > fresnel) {
+                    currentColor = currentDiffuseColor
+                    newRay = Ray(hitPoint, getReflectedDirection(normal, ray.direction))
+                } else {
+                    currentColor = sphere.material.color.multiply(currentDiffuseColor)
+                    newRay = Ray(hitPoint, getRefractedDirection(normal, ray.direction, sphere.material.refractionCoefficient))
+                }
                 //return sphere.material.color
 
             } else if (sphere.material.reflectiveness > 0 && Random.nextDouble() < sphere.material.reflectiveness) {
@@ -126,4 +133,22 @@ class Scene(
         }
     }
 
+    fun fresnel(normal: Vector, direction: Vector, refractiveIndex: Double): Double {
+        var cosi = normal.dot(direction)
+        val into = cosi < 0
+        val etai = if (into) 1.0 else refractiveIndex
+        val etat = if (!into) 1.0 else refractiveIndex
+        val sint = etai / etat * sqrt(1 - cosi * cosi)
+        if (sint >= 1) {
+            return 1.0
+        }
+
+        val cost = sqrt(1 - sint * sint)
+        cosi = abs(cosi)
+        val Rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost))
+        val Rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost))
+
+        return (Rs * Rs + Rp * Rp) * 2.0
+    }
 }
+

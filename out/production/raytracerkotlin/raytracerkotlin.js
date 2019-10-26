@@ -562,8 +562,15 @@ var raytracerkotlin = function (_, Kotlin) {
       hitLight = sphere.material.type === Material$Type$LIGHT_getInstance();
       hit = true;
       if (sphere.material.type === Material$Type$GLASS_getInstance()) {
-        currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
-        newRay = new Ray(hitPoint, this.getRefractedDirection_0(normal, ray.direction, sphere.material.refractionCoefficient));
+        var fresnel = this.fresnel_mjyd7m$(normal, ray.direction, sphere.material.refractionCoefficient);
+        if (Random.Default.nextDouble() > fresnel) {
+          currentColor = currentDiffuseColor;
+          newRay = new Ray(hitPoint, this.getReflectedDirection_0(normal, ray.direction));
+        }
+         else {
+          currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
+          newRay = new Ray(hitPoint, this.getRefractedDirection_0(normal, ray.direction, sphere.material.refractionCoefficient));
+        }
       }
        else if (sphere.material.reflectiveness > 0 && Random.Default.nextDouble() < sphere.material.reflectiveness) {
         currentColor = currentDiffuseColor;
@@ -617,6 +624,25 @@ var raytracerkotlin = function (_, Kotlin) {
       if (element.material.type !== Material$Type$LIGHT_getInstance() && element.radius < 1000)
         element.location = new Vector(element.location.x, d - element.radius, element.location.z);
     }
+  };
+  Scene.prototype.fresnel_mjyd7m$ = function (normal, direction, refractiveIndex) {
+    var cosi = normal.dot_spvnod$(direction);
+    var into = cosi < 0;
+    var etai = into ? 1.0 : refractiveIndex;
+    var etat = !into ? 1.0 : refractiveIndex;
+    var tmp$ = etai / etat;
+    var x = 1 - cosi * cosi;
+    var sint = tmp$ * Math_0.sqrt(x);
+    if (sint >= 1) {
+      return 1.0;
+    }
+    var x_0 = 1 - sint * sint;
+    var cost = Math_0.sqrt(x_0);
+    var x_1 = cosi;
+    cosi = Math_0.abs(x_1);
+    var Rs = (etat * cosi - etai * cost) / (etat * cosi + etai * cost);
+    var Rp = (etai * cosi - etat * cost) / (etai * cosi + etat * cost);
+    return (Rs * Rs + Rp * Rp) * 2.0;
   };
   Scene.$metadata$ = {
     kind: Kind_CLASS,
