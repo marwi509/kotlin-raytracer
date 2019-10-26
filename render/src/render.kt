@@ -32,7 +32,7 @@ fun main() {
 }
 
 fun render(e: Event) {
-
+    worker!!.postMessage("start")
     val event = e as MessageEvent
 
     val imageString = (event.data as String)
@@ -49,7 +49,7 @@ fun render(e: Event) {
         }
     }
     println("rendered")
-    worker!!.postMessage("start")
+
 
 
 }

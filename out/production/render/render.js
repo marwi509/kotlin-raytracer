@@ -39,6 +39,7 @@ var render = function (_, Kotlin) {
   }
   function render(e) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    ensureNotNull(worker).postMessage('start');
     var event = Kotlin.isType(tmp$ = e, MessageEvent) ? tmp$ : throwCCE();
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
     var endIndex = imageString.length - 1 | 0;
@@ -62,7 +63,6 @@ var render = function (_, Kotlin) {
       }
     }
     println('rendered');
-    ensureNotNull(worker).postMessage('start');
   }
   function fillStyle(r, g, b) {
     return fillStyle_0(numberToInt(round(r * 255)), numberToInt(round(g * 255)), numberToInt(round(b * 255)));
