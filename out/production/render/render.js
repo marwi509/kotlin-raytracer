@@ -50,12 +50,13 @@ var render = function (_, Kotlin) {
   };
   function render(e) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    var before = Date.now();
     var event = Kotlin.isType(tmp$ = e, MessageEvent) ? tmp$ : throwCCE();
     println('starting render');
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
     var endIndex = imageString.length - 1 | 0;
     var imageList = split(imageString.substring(1, endIndex), [',']);
-    println('split string');
+    println('split string ' + (Date.now() - before));
     var destination = ArrayList_init_0(collectionSizeOrDefault(imageList, 10));
     var tmp$_3;
     tmp$_3 = imageList.iterator();
@@ -64,8 +65,7 @@ var render = function (_, Kotlin) {
       destination.add_11rb$(toDouble(item));
     }
     var doubleList = destination;
-    println('to double');
-    println('rendered');
+    println('to double ' + (Date.now() - before));
     var index = 0;
     tmp$_1 = height;
     for (var y = 0; y < tmp$_1; y++) {
@@ -76,7 +76,7 @@ var render = function (_, Kotlin) {
         index = index + 4 | 0;
       }
     }
-    println('rendered');
+    println('rendered ' + (Date.now() - before));
     ensureNotNull(worker).postMessage('start');
   }
   function fillStyle(r, g, b) {

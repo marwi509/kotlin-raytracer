@@ -2,6 +2,7 @@
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.browser.document
+import kotlin.js.Date
 import kotlin.math.round
 
 val width = 1024
@@ -36,15 +37,16 @@ class Image : ImageBitmap() {
 
 fun render(e: Event) {
 
+    val before = Date.now()
     val event = e as MessageEvent
     println("starting render")
 
 
     val imageString = (event.data as String)
     val imageList = imageString.substring(1,imageString.length-1).split(",")
-    println("split string")
+    println("split string ${Date.now() - before}")
     val doubleList = imageList.map { s -> s.toDouble() }
-    println("to double")
+    println("to double ${Date.now() - before}")
     /*val byteArray = doubleList
             .map { d -> d *255 }
             .map { d -> if (d < 0) 0.0 else if (d > 255.0) 255.0 else d }
@@ -55,7 +57,6 @@ fun render(e: Event) {
     val image = ImageData(Uint8ClampedArray(byteArray), 1024, 600)
     println("to image data")
     context.putImageData(image, 0.0, 0.0)*/
-    println("rendered")
 
 
     var index = 0
@@ -69,7 +70,7 @@ fun render(e: Event) {
         }
     }
 
-    println("rendered")
+    println("rendered ${Date.now() - before}")
     worker!!.postMessage("start")
 
 
