@@ -1,16 +1,4 @@
-class Material {
-
-    val color: Color
-    val reflectiveness: Double
-    val refractionCoefficient: Double
-    val type: Type
-
-    private constructor(color: Color, reflectiveness: Double, type: Type, refractionCoefficient: Double) {
-        this.color = color
-        this.reflectiveness = reflectiveness
-        this.type = type
-        this.refractionCoefficient = refractionCoefficient
-    }
+class Material private constructor(val color: Color, val reflectiveness: Double, val type: Type, val refractionCoefficient: Double) {
 
     companion object {
         fun diffuse(color: Color): Material {

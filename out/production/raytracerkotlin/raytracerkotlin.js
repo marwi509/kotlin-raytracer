@@ -379,27 +379,27 @@ var raytracerkotlin = function (_, Kotlin) {
     }
     return result.toString();
   }
-  function Material() {
+  function Material(color, reflectiveness, type, refractionCoefficient) {
     Material$Companion_getInstance();
-    this.color = null;
-    this.reflectiveness = 0;
-    this.refractionCoefficient = 0;
-    this.type = null;
+    this.color = color;
+    this.reflectiveness = reflectiveness;
+    this.type = type;
+    this.refractionCoefficient = refractionCoefficient;
   }
   function Material$Companion() {
     Material$Companion_instance = this;
   }
   Material$Companion.prototype.diffuse_12ve4j$ = function (color) {
-    return Material_init(color, 0.0, Material$Type$DIFFUSE_getInstance(), 0.0);
+    return new Material(color, 0.0, Material$Type$DIFFUSE_getInstance(), 0.0);
   };
   Material$Companion.prototype.light_12ve4j$ = function (color) {
-    return Material_init(color, 0.0, Material$Type$LIGHT_getInstance(), 0.0);
+    return new Material(color, 0.0, Material$Type$LIGHT_getInstance(), 0.0);
   };
   Material$Companion.prototype.mirror_kdrgh7$ = function (diffuseColor, reflectiveness) {
-    return Material_init(diffuseColor, reflectiveness, Material$Type$DIFFUSE_getInstance(), 0.0);
+    return new Material(diffuseColor, reflectiveness, Material$Type$DIFFUSE_getInstance(), 0.0);
   };
   Material$Companion.prototype.glass_kdrgh7$ = function (color, refractionCoefficient) {
-    return Material_init(color, 0.0, Material$Type$GLASS_getInstance(), refractionCoefficient);
+    return new Material(color, 0.0, Material$Type$GLASS_getInstance(), refractionCoefficient);
   };
   Material$Companion.$metadata$ = {
     kind: Kind_OBJECT,
@@ -466,15 +466,6 @@ var raytracerkotlin = function (_, Kotlin) {
     simpleName: 'Material',
     interfaces: []
   };
-  function Material_init(color, reflectiveness, type, refractionCoefficient, $this) {
-    $this = $this || Object.create(Material.prototype);
-    Material.call($this);
-    $this.color = color;
-    $this.reflectiveness = reflectiveness;
-    $this.type = type;
-    $this.refractionCoefficient = refractionCoefficient;
-    return $this;
-  }
   function Pixel() {
     this.x = 0;
     this.y = 0;
@@ -573,7 +564,7 @@ var raytracerkotlin = function (_, Kotlin) {
       if (sphere.material.type === Material$Type$GLASS_getInstance()) {
         currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
         newRay = new Ray(hitPoint, ray.direction);
-        return Color$Companion_getInstance().black();
+        return sphere.material.color;
       }
        else if (sphere.material.reflectiveness > 0 && Random.Default.nextDouble() < sphere.material.reflectiveness) {
         currentColor = currentDiffuseColor;
