@@ -1,4 +1,5 @@
 
+import org.khronos.webgl.Uint8ClampedArray
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.browser.document
@@ -43,10 +44,13 @@ fun render(e: Event) {
 
 
     val imageString = (event.data as String)
-    val imageList = imageString.substring(1,imageString.length-1).split(",")
-    println("split string ${Date.now() - before}")
-    val doubleList = imageList.map { s -> s.toDouble() }
-    println("to double ${Date.now() - before}")
+    val byteArray = imageString.hexStringToByteArray().toTypedArray()
+    //val imageList = imageString.substring(1,imageString.length-1).split(",")
+    println("to byte array ${Date.now() - before}")
+    //val doubleList = imageList.map { s -> s.toDouble() }
+    val image = ImageData(Uint8ClampedArray(byteArray), 1024, 600)
+    println("to imagedata ${Date.now() - before}")
+    context.putImageData(image, 0.0, 0.0)
     /*val byteArray = doubleList
             .map { d -> d *255 }
             .map { d -> if (d < 0) 0.0 else if (d > 255.0) 255.0 else d }
@@ -58,7 +62,7 @@ fun render(e: Event) {
     println("to image data")
     context.putImageData(image, 0.0, 0.0)*/
 
-
+/*
     var index = 0
     for(y in 0 until height) {
         for(x in 0 until width) {
@@ -68,7 +72,7 @@ fun render(e: Event) {
 
             index+=4
         }
-    }
+    }*/
 
     println("rendered ${Date.now() - before}")
     worker!!.postMessage("start")
@@ -77,7 +81,22 @@ fun render(e: Event) {
 
 }
 
+private val HEX_CHARS = "0123456789ABCDEF"
 
+fun String.hexStringToByteArray() : ByteArray {
+
+    val result = ByteArray(length / 2)
+
+    for (i in 0 until length step 2) {
+        val firstIndex = HEX_CHARS.indexOf(this[i]);
+        val secondIndex = HEX_CHARS.indexOf(this[i + 1]);
+
+        val octet = firstIndex.shl(4).or(secondIndex)
+        result.set(i.shr(1), octet.toByte())
+    }
+
+    return result
+}
 
 fun fillStyle(r: Double, g: Double, b: Double) : String {
     return fillStyle(round(r*255).toInt(), round(g*255).toInt(), round(b*255).toInt())

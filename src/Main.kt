@@ -1,4 +1,5 @@
 import org.w3c.dom.DedicatedWorkerGlobalScope
+import kotlin.experimental.and
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -15,7 +16,7 @@ var l = 0
 external val self: DedicatedWorkerGlobalScope
 val image = Image(width, height)
 
-val endImage = Array(width * height * 4) { i -> 0.0 }
+val endImage = Array(width * height * 4) { i -> 0.toByte() }
 
 fun main() {
     println("marcus raytracer msaa $msaa")
@@ -100,13 +101,31 @@ fun encode(src: String): String {
 
 private fun sendImage(image: Image) {
     image.toPixels().forEach {
-        endImage[(it.y * width + it.x) * 4] = it.red
-        endImage[(it.y * width + it.x) * 4 + 1] = it.green
-        endImage[(it.y * width + it.x) * 4 + 2] = it.blue
-        endImage[(it.y * width + it.x) * 4 + 3] = 1.0
+        endImage[(it.y * width + it.x) * 4] = ((it.red * 255.0).clamp(0.0, 255.0) - 128).toByte()
+        endImage[(it.y * width + it.x) * 4 + 1] = ((it.green * 255.0).clamp(0.0, 255.0) - 128).toByte()
+        endImage[(it.y * width + it.x) * 4 + 2] = ((it.blue * 255.0).clamp(0.0, 255.0) - 128).toByte()
+        endImage[(it.y * width + it.x) * 4 + 3] = 127.toByte()
     }
 
+
+    val hexString = endImage.toByteArray().bytesToHex()
     val message = JSON.stringify(endImage)
 
     self.postMessage(message)
+}
+
+fun Double.clamp(min: Double, max: Double): Double {
+    return if (this < min) min else if (this > max) max else this
+}
+
+private val hexArray = "0123456789ABCDEF".toCharArray()
+
+fun ByteArray.bytesToHex(): String {
+    val hexChars = CharArray(this.size * 2)
+    for (j in this.indices) {
+        val v = (this[j] and 0xFF.toByte()).toInt()
+        hexChars[j * 2] = hexArray[v ushr 4]
+        hexChars[j * 2 + 1] = hexArray[v and 0x0F]
+    }
+    return String(hexChars)
 }

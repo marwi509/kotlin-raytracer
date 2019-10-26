@@ -11,11 +11,16 @@ var raytracerkotlin = function (_, Kotlin) {
   var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
   var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var Array_0 = Array;
+  var toByte = Kotlin.toByte;
   var println = Kotlin.kotlin.io.println_s8jyv4$;
   var Unit = Kotlin.kotlin.Unit;
   var Random = Kotlin.kotlin.random.Random;
   var math = Kotlin.kotlin.math;
   var throwCCE = Kotlin.throwCCE;
+  var numberToInt = Kotlin.numberToInt;
+  var toByteArray = Kotlin.kotlin.collections.toByteArray_vn5r1x$;
+  var toCharArray = Kotlin.kotlin.text.toCharArray_pdl1vz$;
+  var String_0 = Kotlin.kotlin.text.String_4hbowm$;
   var Math_0 = Math;
   var Enum = Kotlin.kotlin.Enum;
   var throwISE = Kotlin.throwISE;
@@ -345,13 +350,27 @@ var raytracerkotlin = function (_, Kotlin) {
     tmp$ = image.toPixels().iterator();
     while (tmp$.hasNext()) {
       var element = tmp$.next();
-      endImage[((element.y * 1024 | 0) + element.x | 0) * 4 | 0] = element.red;
-      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 1 | 0] = element.green;
-      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 2 | 0] = element.blue;
-      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 3 | 0] = 1.0;
+      endImage[((element.y * 1024 | 0) + element.x | 0) * 4 | 0] = toByte(numberToInt(clamp(element.red * 255.0, 0.0, 255.0) - 128));
+      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 1 | 0] = toByte(numberToInt(clamp(element.green * 255.0, 0.0, 255.0) - 128));
+      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 2 | 0] = toByte(numberToInt(clamp(element.blue * 255.0, 0.0, 255.0) - 128));
+      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 3 | 0] = toByte(127);
     }
+    var hexString = bytesToHex(toByteArray(endImage));
     var message = JSON.stringify(endImage);
     self.postMessage(message);
+  }
+  function clamp($receiver, min, max) {
+    return $receiver < min ? min : $receiver > max ? max : $receiver;
+  }
+  var hexArray;
+  function bytesToHex($receiver) {
+    var hexChars = Kotlin.charArray($receiver.length * 2 | 0);
+    for (var j = 0; j !== $receiver.length; ++j) {
+      var v = toByte($receiver[j] & toByte(255));
+      hexChars[j * 2 | 0] = hexArray[v >>> 4];
+      hexChars[(j * 2 | 0) + 1 | 0] = hexArray[v & 15];
+    }
+    return String_0(hexChars);
   }
   function Material(color, reflectiveness, type) {
     this.color = color;
@@ -674,6 +693,8 @@ var raytracerkotlin = function (_, Kotlin) {
   });
   _.main = main;
   _.encode_61zpoe$ = encode;
+  _.clamp_nig4hr$ = clamp;
+  _.bytesToHex_964n91$ = bytesToHex;
   Object.defineProperty(Material$Type, 'DIFFUSE', {
     get: Material$Type$DIFFUSE_getInstance
   });
@@ -704,9 +725,10 @@ var raytracerkotlin = function (_, Kotlin) {
   var tmp$;
   tmp$ = array.length - 1 | 0;
   for (var i = 0; i <= tmp$; i++) {
-    array[i] = 0.0;
+    array[i] = toByte(0);
   }
   endImage = array;
+  hexArray = toCharArray('0123456789ABCDEF');
   main();
   Kotlin.defineModule('raytracerkotlin', _);
   return _;
