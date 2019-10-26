@@ -561,7 +561,7 @@ var raytracerkotlin = function (_, Kotlin) {
       var normal = sphere.normal_spvnod$(hitPoint);
       hitLight = sphere.material.type === Material$Type$LIGHT_getInstance();
       hit = true;
-      if (sphere.material.type === Material$Type$GLASS_getInstance()) {
+      if (sphere.material.type === Material$Type$DIFFUSE_getInstance()) {
         currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
         newRay = new Ray(hitPoint, ray.direction);
         return sphere.material.color;

@@ -57,7 +57,7 @@ class Scene(
             hit = true
 
             //println("${hitPoint.x}, ${hitPoint.y}, ${hitPoint.z}")
-            if (sphere.material.type == Material.Type.GLASS) {
+            if (sphere.material.type == Material.Type.DIFFUSE) {
                 currentColor = sphere.material.color.multiply(currentDiffuseColor)
                 newRay = Ray(hitPoint, ray.direction)
                 return sphere.material.color
