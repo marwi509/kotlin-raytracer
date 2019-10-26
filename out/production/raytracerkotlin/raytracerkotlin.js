@@ -312,7 +312,7 @@ var raytracerkotlin = function (_, Kotlin) {
   }
   function raytrace() {
     var floor = 3.0;
-    var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), Material$Companion_getInstance().glass_kdrgh7$(new Color(0.6, 0.9, 0.6), 1.517), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), Material$Companion_getInstance().mirror_kdrgh7$(new Color(0.6, 0.6, 0.9), 0.95), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), Material$Companion_getInstance().mirror_kdrgh7$(new Color(0.9, 0.6, 0.6), 0.75), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), Material$Companion_getInstance().glass_kdrgh7$(new Color(0.9, 0.9, 0.7), 1.517), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.9, 0.9, 0.9)), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.9, 0.9, 0.7)), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), Material$Companion_getInstance().light_12ve4j$((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0)), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.75, 0.75, 0.75)), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), Material$Companion_getInstance().light_12ve4j$(new Color(1.0, 1.0, 1.0)), 1000000.0)]));
+    var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), Material$Companion_getInstance().mirror_kdrgh7$(new Color(0.6, 0.9, 0.6), 0.75), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), Material$Companion_getInstance().mirror_kdrgh7$(new Color(0.6, 0.6, 0.9), 0.95), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), Material$Companion_getInstance().mirror_kdrgh7$(new Color(0.9, 0.6, 0.6), 0.75), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), Material$Companion_getInstance().glass_kdrgh7$(new Color(0.9, 0.9, 0.7), 1.517), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.9, 0.9, 0.9)), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.9, 0.9, 0.7)), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), Material$Companion_getInstance().light_12ve4j$((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0)), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.75, 0.75, 0.75)), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), Material$Companion_getInstance().light_12ve4j$(new Color(1.0, 1.0, 1.0)), 1000000.0)]));
     scene.placeAllOnFloor_14dthe$(1.0);
     l = l + 1 | 0;
     println('l ' + l);
@@ -606,7 +606,8 @@ var raytracerkotlin = function (_, Kotlin) {
       println('aw shit');
       return new Vector(0.0, 0.0, 0.0);
     }
-    return direction.times_14dthe$(nnt).minus_spvnod$(newNormal.times_14dthe$(ddn * nnt + Math_0.sqrt(cos2t))).normalize();
+    var other = newNormal.times_14dthe$(ddn * nnt + Math_0.sqrt(cos2t));
+    return direction.times_14dthe$(nnt).minus_spvnod$(other).normalize();
   };
   Scene.prototype.placeAllOnFloor_14dthe$ = function (d) {
     var tmp$;

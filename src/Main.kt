@@ -32,7 +32,7 @@ private fun raytrace() {
     val floor = 3.0
 
     val scene = Scene(listOf(
-            Sphere(Vector(0.0, 2.0, 14.0 + zOffset), Material.glass(Color(.6, .9, .6 ), 1.517), 1.3),
+            Sphere(Vector(0.0, 2.0, 14.0 + zOffset), Material.mirror(Color(.6, .9, .6 ), 0.75), 1.3),
             Sphere(Vector(-2.0, 2.0, 11.0 + zOffset), Material.mirror(Color(.6, .6, .9), 0.95), 1.2),
 
             Sphere(Vector(2.0, 2.0, 10.0 + zOffset), Material.mirror(Color(.9, .6, .6), 0.75), 1.8),

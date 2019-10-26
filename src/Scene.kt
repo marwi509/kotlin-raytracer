@@ -115,7 +115,8 @@ class Scene(
             return Vector(0.0, 0.0, 0.0)
         }
 
-        return (direction.times(nnt).minus(newNormal.times(ddn * nnt+sqrt(cos2t))).normalize())
+        val other = newNormal.times(ddn * nnt + sqrt(cos2t))
+        return direction.times(nnt).minus(other).normalize()
     }
 
     fun placeAllOnFloor(d: Double) {
