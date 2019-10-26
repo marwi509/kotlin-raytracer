@@ -1,5 +1,4 @@
 importScripts("https://marwi509.github.io/kotlin-raytracer/out/production/raytracerkotlin/lib/kotlin.js")
-
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'raytracerkotlin'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'raytracerkotlin'.");
 }
@@ -313,7 +312,7 @@ var raytracerkotlin = function (_, Kotlin) {
   }
   function raytrace() {
     var floor = 3.0;
-    var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), new Material(new Color(0.6, 0.9, 0.6), 0.5, Material$Type$DIFFUSE_getInstance()), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), new Material(new Color(0.6, 0.6, 0.9), 0.95, Material$Type$DIFFUSE_getInstance()), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), new Material(new Color(0.9, 0.6, 0.6), 0.75, Material$Type$DIFFUSE_getInstance()), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), new Material(new Color(0.9, 0.9, 0.9), 0.0, Material$Type$DIFFUSE_getInstance()), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), new Material((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0), 0.0, Material$Type$LIGHT_getInstance()), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), new Material(new Color(0.75, 0.75, 0.75), 0.0, Material$Type$DIFFUSE_getInstance()), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), new Material(new Color(1.0, 1.0, 1.0), 0.0, Material$Type$LIGHT_getInstance()), 1000000.0)]));
+    var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.6, 0.9, 0.6)), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), Material$Companion_getInstance().mirror_kdrgh7$(new Color(0.6, 0.6, 0.9), 0.95), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), Material$Companion_getInstance().mirror_kdrgh7$(new Color(0.9, 0.6, 0.6), 0.75), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), Material$Companion_getInstance().glass_kdrgh7$(new Color(0.9, 0.9, 0.7), 1.517), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.9, 0.9, 0.9)), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.9, 0.9, 0.7)), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), Material$Companion_getInstance().light_12ve4j$((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0)), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), Material$Companion_getInstance().diffuse_12ve4j$(new Color(0.75, 0.75, 0.75)), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), Material$Companion_getInstance().light_12ve4j$(new Color(1.0, 1.0, 1.0)), 1000000.0)]));
     scene.placeAllOnFloor_14dthe$(1.0);
     l = l + 1 | 0;
     println('l ' + l);
@@ -369,21 +368,50 @@ var raytracerkotlin = function (_, Kotlin) {
   }
   var HEX_CHARS;
   function toHex($receiver) {
-    var result = {v: StringBuilder_init()};
+    var result = StringBuilder_init();
     var tmp$;
     for (tmp$ = 0; tmp$ !== $receiver.length; ++tmp$) {
       var element = $receiver[tmp$];
       var octet = element;
       var firstIndex = (octet & 240) >>> 4;
       var secondIndex = octet & 15;
-      result.v.append_s8itvh$(HEX_CHARS[firstIndex]).append_s8itvh$(HEX_CHARS[secondIndex]);
+      result.append_s8itvh$(HEX_CHARS[firstIndex]).append_s8itvh$(HEX_CHARS[secondIndex]);
     }
-    return result.v.toString();
+    return result.toString();
   }
-  function Material(color, reflectiveness, type) {
-    this.color = color;
-    this.reflectiveness = reflectiveness;
-    this.type = type;
+  function Material() {
+    Material$Companion_getInstance();
+    this.color = null;
+    this.reflectiveness = 0;
+    this.refractionCoefficient = 0;
+    this.type = null;
+  }
+  function Material$Companion() {
+    Material$Companion_instance = this;
+  }
+  Material$Companion.prototype.diffuse_12ve4j$ = function (color) {
+    return Material_init(color, 0.0, Material$Type$DIFFUSE_getInstance(), 0.0);
+  };
+  Material$Companion.prototype.light_12ve4j$ = function (color) {
+    return Material_init(color, 0.0, Material$Type$LIGHT_getInstance(), 0.0);
+  };
+  Material$Companion.prototype.mirror_kdrgh7$ = function (diffuseColor, reflectiveness) {
+    return Material_init(diffuseColor, reflectiveness, Material$Type$DIFFUSE_getInstance(), 0.0);
+  };
+  Material$Companion.prototype.glass_kdrgh7$ = function (color, refractionCoefficient) {
+    return Material_init(color, 0.0, Material$Type$GLASS_getInstance(), refractionCoefficient);
+  };
+  Material$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var Material$Companion_instance = null;
+  function Material$Companion_getInstance() {
+    if (Material$Companion_instance === null) {
+      new Material$Companion();
+    }
+    return Material$Companion_instance;
   }
   function Material$Type(name, ordinal) {
     Enum.call(this);
@@ -394,12 +422,18 @@ var raytracerkotlin = function (_, Kotlin) {
     Material$Type_initFields = function () {
     };
     Material$Type$DIFFUSE_instance = new Material$Type('DIFFUSE', 0);
-    Material$Type$LIGHT_instance = new Material$Type('LIGHT', 1);
+    Material$Type$GLASS_instance = new Material$Type('GLASS', 1);
+    Material$Type$LIGHT_instance = new Material$Type('LIGHT', 2);
   }
   var Material$Type$DIFFUSE_instance;
   function Material$Type$DIFFUSE_getInstance() {
     Material$Type_initFields();
     return Material$Type$DIFFUSE_instance;
+  }
+  var Material$Type$GLASS_instance;
+  function Material$Type$GLASS_getInstance() {
+    Material$Type_initFields();
+    return Material$Type$GLASS_instance;
   }
   var Material$Type$LIGHT_instance;
   function Material$Type$LIGHT_getInstance() {
@@ -412,13 +446,15 @@ var raytracerkotlin = function (_, Kotlin) {
     interfaces: [Enum]
   };
   function Material$Type$values() {
-    return [Material$Type$DIFFUSE_getInstance(), Material$Type$LIGHT_getInstance()];
+    return [Material$Type$DIFFUSE_getInstance(), Material$Type$GLASS_getInstance(), Material$Type$LIGHT_getInstance()];
   }
   Material$Type.values = Material$Type$values;
   function Material$Type$valueOf(name) {
     switch (name) {
       case 'DIFFUSE':
         return Material$Type$DIFFUSE_getInstance();
+      case 'GLASS':
+        return Material$Type$GLASS_getInstance();
       case 'LIGHT':
         return Material$Type$LIGHT_getInstance();
       default:throwISE('No enum constant Material.Type.' + name);
@@ -430,6 +466,15 @@ var raytracerkotlin = function (_, Kotlin) {
     simpleName: 'Material',
     interfaces: []
   };
+  function Material_init(color, reflectiveness, type, refractionCoefficient, $this) {
+    $this = $this || Object.create(Material.prototype);
+    Material.call($this);
+    $this.color = color;
+    $this.reflectiveness = reflectiveness;
+    $this.type = type;
+    $this.refractionCoefficient = refractionCoefficient;
+    return $this;
+  }
   function Pixel() {
     this.x = 0;
     this.y = 0;
@@ -497,7 +542,7 @@ var raytracerkotlin = function (_, Kotlin) {
     while (tmp$.hasNext()) {
       var sphere = tmp$.next();
       var vectorBetweenSphereAndRay = ray.location.minus_spvnod$(sphere.location);
-      var thingy = ray.direction.scalarProduct_spvnod$(vectorBetweenSphereAndRay);
+      var thingy = ray.direction.dot_spvnod$(vectorBetweenSphereAndRay);
       var firstPart = -thingy;
       var inSquareRoot = thingy * thingy - (vectorBetweenSphereAndRay.lengthSquared() - sphere.radius * sphere.radius);
       if (inSquareRoot < 0) {
@@ -525,7 +570,11 @@ var raytracerkotlin = function (_, Kotlin) {
       var normal = sphere.normal_spvnod$(hitPoint);
       hitLight = sphere.material.type === Material$Type$LIGHT_getInstance();
       hit = true;
-      if (sphere.material.reflectiveness > 0 && Random.Default.nextDouble() < sphere.material.reflectiveness) {
+      if (sphere.material.type === Material$Type$GLASS_getInstance()) {
+        currentColor = sphere.material.color.multiply_12ve4j$(currentDiffuseColor);
+        newRay = new Ray(hitPoint, this.getRefractedDirection_0(normal, ray.direction, sphere.material.refractionCoefficient));
+      }
+       else if (sphere.material.reflectiveness > 0 && Random.Default.nextDouble() < sphere.material.reflectiveness) {
         currentColor = currentDiffuseColor;
         newRay = new Ray(hitPoint, this.getReflectedDirection_0(normal, ray.direction));
       }
@@ -553,7 +602,21 @@ var raytracerkotlin = function (_, Kotlin) {
     return tangent.times_14dthe$(x_0).plus_spvnod$(normal.cross_spvnod$(tangent).times_14dthe$(y)).plus_spvnod$(normal.times_14dthe$(z));
   };
   Scene.prototype.getReflectedDirection_0 = function (normal, ray) {
-    return ray.minus_spvnod$(normal.times_14dthe$(2.0).times_14dthe$(normal.scalarProduct_spvnod$(ray)));
+    return ray.minus_spvnod$(normal.times_14dthe$(2.0).times_14dthe$(normal.dot_spvnod$(ray)));
+  };
+  Scene.prototype.getRefractedDirection_0 = function (normal, direction, refractionIndex) {
+    var into = direction.dot_spvnod$(normal) < 0.0;
+    var newNormal = into ? normal : normal.negate();
+    var nc = 1.0;
+    var nt = refractionIndex;
+    var nnt = into ? nc / nt : nt / nc;
+    var ddn = direction.dot_spvnod$(newNormal);
+    var cos2t = 1 - nnt * nnt * (1 - ddn * ddn);
+    if (cos2t < 0) {
+      println('aw shit');
+      return new Vector(0.0, 0.0, 0.0);
+    }
+    return direction.times_14dthe$(nnt).minus_spvnod$(newNormal.times_14dthe$(ddn * nnt + Math_0.sqrt(cos2t))).normalize();
   };
   Scene.prototype.placeAllOnFloor_14dthe$ = function (d) {
     var tmp$;
@@ -599,7 +662,7 @@ var raytracerkotlin = function (_, Kotlin) {
   Vector.prototype.lengthSquared = function () {
     return this.x * this.x + this.y * this.y + this.z * this.z;
   };
-  Vector.prototype.scalarProduct_spvnod$ = function (other) {
+  Vector.prototype.dot_spvnod$ = function (other) {
     return this.x * other.x + this.y * other.y + this.z * other.z;
   };
   Vector.prototype.minus_spvnod$ = function (other) {
@@ -708,8 +771,14 @@ var raytracerkotlin = function (_, Kotlin) {
     }
   });
   _.toHex_964n91$ = toHex;
+  Object.defineProperty(Material, 'Companion', {
+    get: Material$Companion_getInstance
+  });
   Object.defineProperty(Material$Type, 'DIFFUSE', {
     get: Material$Type$DIFFUSE_getInstance
+  });
+  Object.defineProperty(Material$Type, 'GLASS', {
+    get: Material$Type$GLASS_getInstance
   });
   Object.defineProperty(Material$Type, 'LIGHT', {
     get: Material$Type$LIGHT_getInstance
@@ -731,7 +800,7 @@ var raytracerkotlin = function (_, Kotlin) {
   msaa = 1;
   zOffset = -4.0;
   dofDistance = 11.0 + zOffset;
-  dofRandomizer = 0.25;
+  dofRandomizer = 0.025;
   l = 0;
   image = Image_init(1024, 600);
   var array = Array_0(2457600);

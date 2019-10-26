@@ -20,7 +20,7 @@ class Vector(
         return x * x + y * y + z * z;
     }
 
-    fun scalarProduct(other: Vector): Double {
+    fun dot(other: Vector): Double {
         return x * other.x + y * other.y + z * other.z
     }
 

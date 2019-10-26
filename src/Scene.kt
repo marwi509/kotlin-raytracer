@@ -21,7 +21,7 @@ class Scene(
         var newRay = Ray(Vector.random(), Vector.random())
         for (sphere in spheres) {
             val vectorBetweenSphereAndRay = ray.location.minus(sphere.location)
-            val thingy = ray.direction.scalarProduct(vectorBetweenSphereAndRay)
+            val thingy = ray.direction.dot(vectorBetweenSphereAndRay)
             val firstPart = -thingy
             val inSquareRoot = thingy * thingy - (vectorBetweenSphereAndRay.lengthSquared() - sphere.radius * sphere.radius)
 
@@ -57,7 +57,11 @@ class Scene(
             hit = true
 
             //println("${hitPoint.x}, ${hitPoint.y}, ${hitPoint.z}")
-            if (sphere.material.reflectiveness > 0 && Random.nextDouble() < sphere.material.reflectiveness) {
+            if (sphere.material.type == Material.Type.GLASS) {
+                currentColor = sphere.material.color.multiply(currentDiffuseColor)
+                newRay = Ray(hitPoint, getRefractedDirection(normal, ray.direction, sphere.material.refractionCoefficient))
+
+            } else if (sphere.material.reflectiveness > 0 && Random.nextDouble() < sphere.material.reflectiveness) {
                 currentColor = currentDiffuseColor
                 newRay = Ray(hitPoint, getReflectedDirection(normal, ray.direction))
             } else {
@@ -94,13 +98,30 @@ class Scene(
     }
 
     private fun getReflectedDirection(normal: Vector, ray: Vector): Vector {
-        return ray.minus(normal.times(2.0).times(normal.scalarProduct(ray)))
+        return ray.minus(normal.times(2.0).times(normal.dot(ray)))
+    }
+
+    private fun getRefractedDirection(normal: Vector, direction: Vector, refractionIndex: Double): Vector {
+        val into = direction.dot(normal) < 0.0
+        val newNormal = if (into) normal else normal.negate()
+
+        val nc = 1.0
+        val nt = refractionIndex
+        val nnt = if (into) nc / nt else nt / nc
+        val ddn = direction.dot(newNormal)
+        val cos2t = 1 - nnt*nnt*(1-ddn*ddn)
+        if(cos2t < 0) {
+            println("aw shit")
+            return Vector(0.0, 0.0, 0.0)
+        }
+
+        return (direction.times(nnt).minus(newNormal.times(ddn * nnt+sqrt(cos2t))).normalize())
     }
 
     fun placeAllOnFloor(d: Double) {
         spheres.forEach {
             if (it.material.type == Material.Type.DIFFUSE && it.radius < 1000)
-                it.location = Vector(it.location.x, d - it.radius , it.location.z)
+                it.location = Vector(it.location.x, d - it.radius, it.location.z)
         }
     }
 
