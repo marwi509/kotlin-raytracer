@@ -45,6 +45,7 @@ fun render(e: Event) {
 
     val imageString = (event.data as String)
     val byteArray = imageString.hexStringToByteArray().toTypedArray()
+    println("byte array size ${byteArray.size}")
     //val imageList = imageString.substring(1,imageString.length-1).split(",")
     println("to byte array ${Date.now() - before}")
     //val doubleList = imageList.map { s -> s.toDouble() }

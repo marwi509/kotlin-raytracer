@@ -54,6 +54,7 @@ var render = function (_, Kotlin) {
     println('starting render');
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
     var byteArray = toTypedArray(hexStringToByteArray(imageString));
+    println('byte array size ' + byteArray.length);
     println('to byte array ' + (Date.now() - before));
     var image = new ImageData(new Uint8ClampedArray(byteArray), 1024, 600);
     println('to imagedata ' + (Date.now() - before));
