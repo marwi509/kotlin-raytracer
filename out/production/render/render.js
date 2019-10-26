@@ -39,7 +39,6 @@ var render = function (_, Kotlin) {
   }
   function render(e) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
-    ensureNotNull(worker).postMessage('start');
     var event = Kotlin.isType(tmp$ = e, MessageEvent) ? tmp$ : throwCCE();
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
     var endIndex = imageString.length - 1 | 0;

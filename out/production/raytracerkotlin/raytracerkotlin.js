@@ -306,34 +306,36 @@ var raytracerkotlin = function (_, Kotlin) {
     var floor = 3.0;
     var scene = new Scene(listOf([new Sphere(new Vector(0.0, 2.0, 14.0 + zOffset), new Material(new Color(0.6, 0.9, 0.6), 0.5, Material$Type$DIFFUSE_getInstance()), 1.3), new Sphere(new Vector(-2.0, 2.0, 11.0 + zOffset), new Material(new Color(0.6, 0.6, 0.9), 0.95, Material$Type$DIFFUSE_getInstance()), 1.2), new Sphere(new Vector(2.0, 2.0, 10.0 + zOffset), new Material(new Color(0.9, 0.6, 0.6), 0.75, Material$Type$DIFFUSE_getInstance()), 1.8), new Sphere(new Vector(-0.5, 2.0, 9.5 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.3), new Sphere(new Vector(-4.0, 2.0, 13.0 + zOffset), new Material(new Color(0.9, 0.9, 0.9), 0.0, Material$Type$DIFFUSE_getInstance()), 0.5), new Sphere(new Vector(7.0, 2.0, 18.0 + zOffset), new Material(new Color(0.9, 0.9, 0.7), 0.0, Material$Type$DIFFUSE_getInstance()), 0.7), new Sphere(new Vector(-2.0, -6.0, 10.0 - zOffset), new Material((new Color(1.0, 1.0, 1.0)).multiply_14dthe$(240.0), 0.0, Material$Type$LIGHT_getInstance()), 0.7), new Sphere(new Vector(0.0, 100001.0, 0.0), new Material(new Color(0.75, 0.75, 0.75), 0.0, Material$Type$DIFFUSE_getInstance()), 100000.0), new Sphere(new Vector(0.0, 0.0, 0.0), new Material(new Color(1.0, 1.0, 1.0), 0.0, Material$Type$LIGHT_getInstance()), 1000000.0)]));
     scene.placeAllOnFloor_14dthe$(1.0);
-    l = l + 1 | 0;
-    println('l ' + l);
-    for (var i = 0; i < 600; i++) {
-      if (i % 100 === 0) {
-        println(i);
-      }
-      for (var j = 0; j < 1024; j++) {
-        var colorSample = new ColorSamples();
-        for (var m = 0; m < 1; m++) {
-          for (var k = 0; k < 1; k++) {
-            var adjustedY = ((i * 1 | 0) + m | 0) / 1;
-            var adjustedX = ((j * 1 | 0) + k | 0) / 1;
-            var screenLocation = new Vector(adjustedX, adjustedY, 0.0);
-            var worldLocation = new Vector((screenLocation.x - 512) / 1024, (screenLocation.y - 300) / 1024, screenLocation.z);
-            var direction = (new Vector(worldLocation.x, worldLocation.y - 0.125, 1.0)).normalize();
-            var dofPoint = direction.times_14dthe$(dofDistance);
-            var randomR = Random.Default.nextDouble() * dofRandomizer;
-            var randomAngle = Random.Default.nextDouble() * math.PI * 2;
-            var dofNewLocation = worldLocation.plus_spvnod$(new Vector(randomR * Math_0.cos(randomAngle), randomR * Math_0.sin(randomAngle), 0.0));
-            var dofNewDirection = dofPoint.minus_spvnod$(dofNewLocation).normalize();
-            var ray = new Ray(dofNewLocation, dofNewDirection);
-            colorSample.addSample_12ve4j$(scene.render_1r7u$(ray));
-          }
+    while (true) {
+      l = l + 1 | 0;
+      println('l ' + l);
+      for (var i = 0; i < 600; i++) {
+        if (i % 100 === 0) {
+          println(i);
         }
-        image.addSample_if1tab$(j, i, colorSample.getColor());
+        for (var j = 0; j < 1024; j++) {
+          var colorSample = new ColorSamples();
+          for (var m = 0; m < 1; m++) {
+            for (var k = 0; k < 1; k++) {
+              var adjustedY = ((i * 1 | 0) + m | 0) / 1;
+              var adjustedX = ((j * 1 | 0) + k | 0) / 1;
+              var screenLocation = new Vector(adjustedX, adjustedY, 0.0);
+              var worldLocation = new Vector((screenLocation.x - 512) / 1024, (screenLocation.y - 300) / 1024, screenLocation.z);
+              var direction = (new Vector(worldLocation.x, worldLocation.y - 0.125, 1.0)).normalize();
+              var dofPoint = direction.times_14dthe$(dofDistance);
+              var randomR = Random.Default.nextDouble() * dofRandomizer;
+              var randomAngle = Random.Default.nextDouble() * math.PI * 2;
+              var dofNewLocation = worldLocation.plus_spvnod$(new Vector(randomR * Math_0.cos(randomAngle), randomR * Math_0.sin(randomAngle), 0.0));
+              var dofNewDirection = dofPoint.minus_spvnod$(dofNewLocation).normalize();
+              var ray = new Ray(dofNewLocation, dofNewDirection);
+              colorSample.addSample_12ve4j$(scene.render_1r7u$(ray));
+            }
+          }
+          image.addSample_if1tab$(j, i, colorSample.getColor());
+        }
       }
+      sendImage(image);
     }
-    sendImage(image);
   }
   function encode(src) {
     var tmp$;

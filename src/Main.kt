@@ -52,44 +52,46 @@ private fun raytrace() {
 
     scene.placeAllOnFloor(1.0)
 
-    l += 1
-    println("l $l")
+    while(true) {
+        l += 1
+        println("l $l")
 
-    for (i in 0 until height) {
-        if (i % 100 == 0) {
-            println(i)
+        for (i in 0 until height) {
+            if (i % 100 == 0) {
+                println(i)
 
-        }
-        for (j in 0 until width) {
-            val colorSample = ColorSamples()
-            for (m in 0 until msaa) {
-                for (k in 0 until msaa) {
-                    val adjustedY = (i * msaa + m).toDouble() / msaa.toDouble()
-                    val adjustedX = (j * msaa + k).toDouble() / msaa.toDouble()
-                    val screenLocation = Vector(adjustedX, adjustedY, 0.0)
-                    val worldLocation = Vector((screenLocation.x - width / 2) / width, (screenLocation.y - height / 2) / width, screenLocation.z)
-                    //println("${worldLocation.x}, ${worldLocation.y}, ${worldLocation.z}")
-                    val direction = Vector(worldLocation.x, worldLocation.y - 0.125, 1.0).normalize()
-
-                    val dofPoint = direction.times(dofDistance)
-
-                    val randomR = Random.nextDouble() * dofRandomizer
-                    val randomAngle = Random.nextDouble() * PI * 2
-
-                    val dofNewLocation = worldLocation.plus(Vector(randomR * cos(randomAngle), randomR * sin(randomAngle), 0.0))
-
-                    val dofNewDirection = dofPoint.minus(dofNewLocation).normalize()
-
-                    val ray = Ray(dofNewLocation, dofNewDirection)
-                    colorSample.addSample(scene.render(ray))
-                }
             }
-            image.addSample(j, i, colorSample.getColor())
+            for (j in 0 until width) {
+                val colorSample = ColorSamples()
+                for (m in 0 until msaa) {
+                    for (k in 0 until msaa) {
+                        val adjustedY = (i * msaa + m).toDouble() / msaa.toDouble()
+                        val adjustedX = (j * msaa + k).toDouble() / msaa.toDouble()
+                        val screenLocation = Vector(adjustedX, adjustedY, 0.0)
+                        val worldLocation = Vector((screenLocation.x - width / 2) / width, (screenLocation.y - height / 2) / width, screenLocation.z)
+                        //println("${worldLocation.x}, ${worldLocation.y}, ${worldLocation.z}")
+                        val direction = Vector(worldLocation.x, worldLocation.y - 0.125, 1.0).normalize()
+
+                        val dofPoint = direction.times(dofDistance)
+
+                        val randomR = Random.nextDouble() * dofRandomizer
+                        val randomAngle = Random.nextDouble() * PI * 2
+
+                        val dofNewLocation = worldLocation.plus(Vector(randomR * cos(randomAngle), randomR * sin(randomAngle), 0.0))
+
+                        val dofNewDirection = dofPoint.minus(dofNewLocation).normalize()
+
+                        val ray = Ray(dofNewLocation, dofNewDirection)
+                        colorSample.addSample(scene.render(ray))
+                    }
+                }
+                image.addSample(j, i, colorSample.getColor())
+            }
+
+
         }
-
-
+        sendImage(image)
     }
-    sendImage(image)
 
 }
 
