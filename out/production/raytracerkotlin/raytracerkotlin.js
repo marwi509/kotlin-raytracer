@@ -356,8 +356,8 @@ var raytracerkotlin = function (_, Kotlin) {
       endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 3 | 0] = toByte(127);
     }
     var hexString = bytesToHex(toByteArray(endImage));
-    var message = JSON.stringify(endImage);
-    self.postMessage(message);
+    var message = JSON.stringify(hexString);
+    self.postMessage(hexString);
   }
   function clamp($receiver, min, max) {
     return $receiver < min ? min : $receiver > max ? max : $receiver;

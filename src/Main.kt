@@ -109,9 +109,9 @@ private fun sendImage(image: Image) {
 
 
     val hexString = endImage.toByteArray().bytesToHex()
-    val message = JSON.stringify(endImage)
+    val message = JSON.stringify(hexString)
 
-    self.postMessage(message)
+    self.postMessage(hexString)
 }
 
 fun Double.clamp(min: Double, max: Double): Double {
