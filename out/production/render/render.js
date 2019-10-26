@@ -8,13 +8,12 @@ var render = function (_, Kotlin) {
   var ensureNotNull = Kotlin.ensureNotNull;
   var Unit = Kotlin.kotlin.Unit;
   var Kind_CLASS = Kotlin.Kind.CLASS;
-  var split = Kotlin.kotlin.text.split_ip8yn$;
-  var toDouble = Kotlin.kotlin.text.toDouble_pdl1vz$;
+  var toTypedArray = Kotlin.kotlin.collections.toTypedArray_964n91$;
+  var indexOf = Kotlin.kotlin.text.indexOf_8eortd$;
+  var toByte = Kotlin.toByte;
   var round = Kotlin.kotlin.math.round_14dthe$;
   var numberToInt = Kotlin.numberToInt;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
-  var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
-  var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
   Image.prototype = Object.create(ImageBitmap.prototype);
   Image.prototype.constructor = Image;
   var width;
@@ -49,35 +48,31 @@ var render = function (_, Kotlin) {
     interfaces: []
   };
   function render(e) {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    var tmp$, tmp$_0;
     var before = Date.now();
     var event = Kotlin.isType(tmp$ = e, MessageEvent) ? tmp$ : throwCCE();
     println('starting render');
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
-    var endIndex = imageString.length - 1 | 0;
-    var imageList = split(imageString.substring(1, endIndex), [',']);
-    println('split string ' + (Date.now() - before));
-    var destination = ArrayList_init_0(collectionSizeOrDefault(imageList, 10));
-    var tmp$_3;
-    tmp$_3 = imageList.iterator();
-    while (tmp$_3.hasNext()) {
-      var item = tmp$_3.next();
-      destination.add_11rb$(toDouble(item));
-    }
-    var doubleList = destination;
-    println('to double ' + (Date.now() - before));
-    var index = 0;
-    tmp$_1 = height;
-    for (var y = 0; y < tmp$_1; y++) {
-      tmp$_2 = width;
-      for (var x = 0; x < tmp$_2; x++) {
-        context.fillStyle = fillStyle(doubleList.get_za3lpa$(index), doubleList.get_za3lpa$(index + 1 | 0), doubleList.get_za3lpa$(index + 2 | 0));
-        context.fillRect(x, y, 1.0, 1.0);
-        index = index + 4 | 0;
-      }
-    }
+    var byteArray = toTypedArray(hexStringToByteArray(imageString));
+    println('to byte array ' + (Date.now() - before));
+    var image = new ImageData(new Uint8ClampedArray(byteArray), 1024, 600);
+    println('to imagedata ' + (Date.now() - before));
+    context.putImageData(image, 0.0, 0.0);
     println('rendered ' + (Date.now() - before));
     ensureNotNull(worker).postMessage('start');
+  }
+  var HEX_CHARS;
+  function hexStringToByteArray($receiver) {
+    var tmp$;
+    var result = new Int8Array($receiver.length / 2 | 0);
+    tmp$ = $receiver.length;
+    for (var i = 0; i < tmp$; i += 2) {
+      var firstIndex = indexOf(HEX_CHARS, $receiver.charCodeAt(i));
+      var secondIndex = indexOf(HEX_CHARS, $receiver.charCodeAt(i + 1 | 0));
+      var octet = firstIndex << 4 | secondIndex;
+      result[i >> 1] = toByte(octet);
+    }
+    return result;
   }
   function fillStyle(r, g, b) {
     return fillStyle_0(numberToInt(round(r * 255)), numberToInt(round(g * 255)), numberToInt(round(b * 255)));
@@ -116,6 +111,7 @@ var render = function (_, Kotlin) {
   _.main = main;
   _.Image = Image;
   _.render_9ojx7i$ = render;
+  _.hexStringToByteArray_pdl1vz$ = hexStringToByteArray;
   _.fillStyle_yvo9jy$ = fillStyle;
   _.fillStyle_qt1dr2$ = fillStyle_0;
   width = 1024;
@@ -124,6 +120,7 @@ var render = function (_, Kotlin) {
   canvas = Kotlin.isType(tmp$ = document.getElementById('c'), HTMLCanvasElement) ? tmp$ : throwCCE();
   context = Kotlin.isType(tmp$_0 = canvas.getContext('2d'), CanvasRenderingContext2D) ? tmp$_0 : throwCCE();
   worker = null;
+  HEX_CHARS = '0123456789ABCDEF';
   main();
   Kotlin.defineModule('render', _);
   return _;
