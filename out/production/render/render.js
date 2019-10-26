@@ -86,7 +86,7 @@ var render = function (_, Kotlin) {
     tmp$_4 = destination_1.iterator();
     while (tmp$_4.hasNext()) {
       var item_2 = tmp$_4.next();
-      destination_2.add_11rb$(item_2);
+      destination_2.add_11rb$(item_2 - 128.0);
     }
     var destination_3 = ArrayList_init_0(collectionSizeOrDefault(destination_2, 10));
     var tmp$_5;
