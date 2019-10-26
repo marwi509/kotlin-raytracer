@@ -46,8 +46,10 @@ fun render(e: Event) {
     println("split string")
     val doubleList = imageList.map { s -> s.toDouble() }
     println("to double")
-    val byteArray = doubleList.map { d -> d *255 }.map { d -> if (d < 0) 0.0 else if (d > 255.0) 255.0 else d }
-            .map { d -> d }
+    val byteArray = doubleList
+            .map { d -> d *255 }
+            .map { d -> if (d < 0) 0.0 else if (d > 255.0) 255.0 else d }
+            .map { d -> d - 128.0 }
             .map { d -> d.toByte() }
             .toTypedArray()
     println("to byte array")

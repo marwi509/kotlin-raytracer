@@ -350,7 +350,7 @@ var raytracerkotlin = function (_, Kotlin) {
       endImage[((element.y * 1024 | 0) + element.x | 0) * 4 | 0] = element.red;
       endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 1 | 0] = element.green;
       endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 2 | 0] = element.blue;
-      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 3 | 0] = 1.0;
+      endImage[(((element.y * 1024 | 0) + element.x | 0) * 4 | 0) + 3 | 0] = 0.0;
     }
     var message = JSON.stringify(endImage);
     self.postMessage(message);

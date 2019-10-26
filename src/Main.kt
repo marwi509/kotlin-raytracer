@@ -105,7 +105,7 @@ private fun sendImage(image: Image) {
         endImage[(it.y * width + it.x) * 4] = it.red
         endImage[(it.y * width + it.x) * 4 + 1] = it.green
         endImage[(it.y * width + it.x) * 4 + 2] = it.blue
-        endImage[(it.y * width + it.x) * 4 + 3] = 1.0
+        endImage[(it.y * width + it.x) * 4 + 3] = 0.0
     }
 
     val message = JSON.stringify(endImage)
