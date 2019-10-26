@@ -1,4 +1,5 @@
 importScripts("https://marwi509.github.io/kotlin-raytracer/out/production/raytracerkotlin/lib/kotlin.js")
+
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'raytracerkotlin'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'raytracerkotlin'.");
 }
@@ -23,7 +24,7 @@ var raytracerkotlin = function (_, Kotlin) {
   var max = Kotlin.kotlin.collections.max_pbinho$;
   var toByteArray = Kotlin.kotlin.collections.toByteArray_vn5r1x$;
   var toCharArray = Kotlin.kotlin.text.toCharArray_pdl1vz$;
-  var String_0 = Kotlin.kotlin.text.String_4hbowm$;
+  var StringBuilder_init = Kotlin.kotlin.text.StringBuilder_init;
   var Math_0 = Math;
   var Enum = Kotlin.kotlin.Enum;
   var throwISE = Kotlin.throwISE;
@@ -360,22 +361,24 @@ var raytracerkotlin = function (_, Kotlin) {
     }
     println('byte array min in render ' + toString(min(endImage)));
     println('byte array max in render ' + toString(max(endImage)));
-    var hexString = bytesToHex(toByteArray(endImage));
-    var message = JSON.stringify(hexString);
+    var hexString = toHex(toByteArray(endImage));
     self.postMessage(hexString);
   }
   function clamp($receiver, min, max) {
     return $receiver < min ? min : $receiver > max ? max : $receiver;
   }
-  var hexArray;
-  function bytesToHex($receiver) {
-    var hexChars = Kotlin.charArray($receiver.length * 2 | 0);
-    for (var j = 0; j !== $receiver.length; ++j) {
-      var v = toByte($receiver[j] & toByte(255));
-      hexChars[j * 2 | 0] = hexArray[v >>> 4];
-      hexChars[(j * 2 | 0) + 1 | 0] = hexArray[v & 15];
+  var HEX_CHARS;
+  function toHex($receiver) {
+    var result = {v: StringBuilder_init()};
+    var tmp$;
+    for (tmp$ = 0; tmp$ !== $receiver.length; ++tmp$) {
+      var element = $receiver[tmp$];
+      var octet = element;
+      var firstIndex = (octet & 240) >>> 4;
+      var secondIndex = octet & 15;
+      result.v.append_s8itvh$(HEX_CHARS[firstIndex]).append_s8itvh$(HEX_CHARS[secondIndex]);
     }
-    return String_0(hexChars);
+    return result.v.toString();
   }
   function Material(color, reflectiveness, type) {
     this.color = color;
@@ -699,7 +702,12 @@ var raytracerkotlin = function (_, Kotlin) {
   _.main = main;
   _.encode_61zpoe$ = encode;
   _.clamp_nig4hr$ = clamp;
-  _.bytesToHex_964n91$ = bytesToHex;
+  Object.defineProperty(_, 'HEX_CHARS', {
+    get: function () {
+      return HEX_CHARS;
+    }
+  });
+  _.toHex_964n91$ = toHex;
   Object.defineProperty(Material$Type, 'DIFFUSE', {
     get: Material$Type$DIFFUSE_getInstance
   });
@@ -733,7 +741,7 @@ var raytracerkotlin = function (_, Kotlin) {
     array[i] = toByte(0);
   }
   endImage = array;
-  hexArray = toCharArray('0123456789ABCDEF');
+  HEX_CHARS = toCharArray('0123456789ABCDEF');
   main();
   Kotlin.defineModule('raytracerkotlin', _);
   return _;

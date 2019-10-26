@@ -1,5 +1,5 @@
+
 import org.w3c.dom.DedicatedWorkerGlobalScope
-import kotlin.experimental.and
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -110,8 +110,7 @@ private fun sendImage(image: Image) {
     println("byte array min in render ${endImage.min()}")
     println("byte array max in render ${endImage.max()}")
 
-    val hexString = endImage.toByteArray().bytesToHex()
-    val message = JSON.stringify(hexString)
+    val hexString = endImage.toByteArray().toHex()
 
     self.postMessage(hexString)
 }
@@ -120,14 +119,17 @@ fun Double.clamp(min: Double, max: Double): Double {
     return if (this < min) min else if (this > max) max else this
 }
 
-private val hexArray = "0123456789ABCDEF".toCharArray()
+val HEX_CHARS = "0123456789ABCDEF".toCharArray()
 
-fun ByteArray.bytesToHex(): String {
-    val hexChars = CharArray(this.size * 2)
-    for (j in this.indices) {
-        val v = (this[j] and 0xFF.toByte()).toInt()
-        hexChars[j * 2] = hexArray[v ushr 4]
-        hexChars[j * 2 + 1] = hexArray[v and 0x0F]
+fun ByteArray.toHex() : String{
+    var result = StringBuilder()
+
+    forEach {
+        val octet = it.toInt()
+        val firstIndex = (octet and 0xF0).ushr(4)
+        val secondIndex = octet and 0x0F
+        result.append(HEX_CHARS[firstIndex]).append(HEX_CHARS[secondIndex])
     }
-    return String(hexChars)
+
+    return result.toString()
 }
