@@ -52,7 +52,7 @@ fun render(e: Event) {
     val uint8ClampedArray = Uint8ClampedArray(1024 * 600 * 4)
     val index = 0
     for (i in byteArray.indices) {
-        uint8ClampedArray.asDynamic()[i] = byteArray[i].toInt().plus(128)
+        uint8ClampedArray.asDynamic()[i] = byteArray[i].toInt().plus(10000)
     }
     val image = ImageData(uint8ClampedArray, 1024, 600)
     println("to imagedata ${Date.now() - before}")

@@ -59,7 +59,7 @@ var render = function (_, Kotlin) {
     var uint8ClampedArray = new Uint8ClampedArray(2457600);
     var index = 0;
     for (var i = 0; i !== byteArray.length; ++i) {
-      uint8ClampedArray[i] = byteArray[i] + 128 | 0;
+      uint8ClampedArray[i] = byteArray[i] + 10000 | 0;
     }
     var image = new ImageData(uint8ClampedArray, 1024, 600);
     println('to imagedata ' + (Date.now() - before));
