@@ -53,9 +53,11 @@ var render = function (_, Kotlin) {
   function render(e) {
     var tmp$, tmp$_0;
     var event = Kotlin.isType(tmp$ = e, MessageEvent) ? tmp$ : throwCCE();
+    println('starting render');
     var imageString = typeof (tmp$_0 = event.data) === 'string' ? tmp$_0 : throwCCE();
     var endIndex = imageString.length - 1 | 0;
     var imageList = split(imageString.substring(1, endIndex), [',']);
+    println('split string');
     var destination = ArrayList_init_0(collectionSizeOrDefault(imageList, 10));
     var tmp$_1;
     tmp$_1 = imageList.iterator();
@@ -64,6 +66,7 @@ var render = function (_, Kotlin) {
       destination.add_11rb$(toDouble(item));
     }
     var doubleList = destination;
+    println('to double');
     var destination_0 = ArrayList_init_0(collectionSizeOrDefault(doubleList, 10));
     var tmp$_2;
     tmp$_2 = doubleList.iterator();
@@ -93,8 +96,11 @@ var render = function (_, Kotlin) {
       destination_3.add_11rb$(toByte(numberToInt(item_3)));
     }
     var byteArray = copyToArray(destination_3);
+    println('to byte array');
     var image = new ImageData(new Uint8ClampedArray(byteArray), 1024, 600);
+    println('to image data');
     context.putImageData(image, 0.0, 0.0);
+    println('rendered');
     println('rendered');
   }
   function fillStyle(r, g, b) {

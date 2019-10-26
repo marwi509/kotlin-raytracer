@@ -38,18 +38,23 @@ class Image : ImageBitmap() {
 fun render(e: Event) {
     //worker!!.postMessage("start")
     val event = e as MessageEvent
+    println("starting render")
 
 
     val imageString = (event.data as String)
     val imageList = imageString.substring(1,imageString.length-1).split(",")
+    println("split string")
     val doubleList = imageList.map { s -> s.toDouble() }
+    println("to double")
     val byteArray = doubleList.map { d -> d *255 }.map { d -> if (d < 0) 0.0 else if (d > 255.0) 255.0 else d }
             .map { d -> d - 128.0 }
             .map { d -> d.toByte() }
             .toTypedArray()
+    println("to byte array")
     val image = ImageData(Uint8ClampedArray(byteArray), 1024, 600)
+    println("to image data")
     context.putImageData(image, 0.0, 0.0)
-
+    println("rendered")
 
     /*
     var index = 0
